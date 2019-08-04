@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Ashald</title>
+    <link>https://ashald.net/posts/</link>
+    <description>Recent content in Posts on Ashald</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 09 Apr 2019 06:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://ashald.net/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Mutianyu Great Wall</title>
+      <link>https://ashald.net/posts/2019/04/09/mutianyu-great-wall/</link>
+      <pubDate>Tue, 09 Apr 2019 06:00:00 +0800</pubDate>
+      
+      <guid>https://ashald.net/posts/2019/04/09/mutianyu-great-wall/</guid>
+      <description>TL;DR: We had an 18-hour-long overnight stopover in Bejing early April and went to see Mutianyu section of the Great Wall of China. Would do it again. Weather was crazy.
+ Back in December of 2018, we&amp;rsquo;ve been planning a trip to Japan and were looking for ways to save on airfare. The cheapest option we discovered was with Air China and included an overnight stopover. Our friends who flew with some other Chinese airlines told us they got free accommodation whenever they had an overnight stopover.</description>
+    </item>
+    
+    <item>
+      <title>Consul KV Store ACLs as an authorization engine for Nginx</title>
+      <link>https://ashald.net/posts/2018/10/24/consul-acls-nginx/</link>
+      <pubDate>Wed, 24 Oct 2018 22:35:00 -0500</pubDate>
+      
+      <guid>https://ashald.net/posts/2018/10/24/consul-acls-nginx/</guid>
+      <description>HashiCorp&amp;rsquo;s Consul is a well known &amp;ldquo;Swiss Army knife&amp;rdquo; in the world of service-oriented infrastructure. Among its many features, it also provides KV store capabilities along with an ACL system that allows for fine-grained access control.
+Regardless of the environment where Consul is run, it&amp;rsquo;s always a good idea to have the ACL system enabled. Besides its apparent uses, it can be used for performance optimizations and easy data filtering.</description>
+    </item>
+    
+    <item>
+      <title>Using Consul at Some Scale</title>
+      <link>https://ashald.net/posts/2018/10/23/scale-consul/</link>
+      <pubDate>Tue, 23 Oct 2018 20:35:00 -0500</pubDate>
+      
+      <guid>https://ashald.net/posts/2018/10/23/scale-consul/</guid>
+      <description>Scale I&amp;rsquo;ve been using Consul since one of the first releases back in 2014 and have set it up multiple times in various environments - from standalone nodes for convenience purposes to multi-datacenter federated clusters partitioned over WAN and LAN segments.
+Over time, dealing with larger and larger setups, I learned some tricks that came handy as scale grew, especially once node and service counters start running in hundreds or thousands.</description>
+    </item>
+    
+    <item>
+      <title>Templating with Bash</title>
+      <link>https://ashald.net/posts/2018/08/14/bash-templating/</link>
+      <pubDate>Tue, 14 Aug 2018 13:07:00 -0400</pubDate>
+      
+      <guid>https://ashald.net/posts/2018/08/14/bash-templating/</guid>
+      <description>While scripting in Bash, pretty often there is a need to generate a file or few. Some of the configuration options might not be known until the just-before application start or might need to be derived from the environment or context.
+Environment Variable Substitution One off One of the most common ways to generate a configuration file is by using heredoc literal:
+$ SERVER_IP=0.0.0.0 SERVER_PORT=12345 cat &amp;gt; config.json &amp;lt;&amp;lt; EOF &amp;gt; { &amp;gt; &amp;quot;ip&amp;quot;: &amp;quot;${SERVER_IP}&amp;quot;, &amp;gt; &amp;quot;port&amp;quot;: ${SERVER_PORT} &amp;gt; } &amp;gt; EOF  as simple as that, it&amp;rsquo;s hard to beat it in terms of convenience as you don&amp;rsquo;t need to worry about many things such as escaping quotes, worry about newlines and so on.</description>
+    </item>
+    
+    <item>
+      <title>Simplistic Python Command-Line Applications</title>
+      <link>https://ashald.net/posts/2018/08/12/python-cli/</link>
+      <pubDate>Sun, 12 Aug 2018 16:42:00 -0400</pubDate>
+      
+      <guid>https://ashald.net/posts/2018/08/12/python-cli/</guid>
+      <description>Intro Python is becoming the world&amp;rsquo;s most popular coding language, and there are so many uses for it. One of the most popular ones, probably, would be scripting.
+When writing a command-line application in Python, parsing arguments passed to it is usually the problem #1.
+If you&amp;rsquo;re dealing with a program that has its own dependencies or there is an environment (hope it&amp;rsquo;s virtual rather than system-wide) you don&amp;rsquo;t mind installing few packages to - you probably should consider using excellent click library.</description>
+    </item>
+    
+    <item>
+      <title>Modeling Trees: Graphs vs SQL-based MPTT</title>
+      <link>https://ashald.net/posts/2018/08/10/graph-databases/</link>
+      <pubDate>Fri, 10 Aug 2018 23:33:00 -0400</pubDate>
+      
+      <guid>https://ashald.net/posts/2018/08/10/graph-databases/</guid>
+      <description>Back in 2014 I&amp;rsquo;ve been working for a startup then-called EnergyDeck on behalf of a web studio WebRiders. Even though I started working in tech since I graduated from high school and been working in the field for about 7 years by that time, mostly it was part time on rather smaller projects or internship after or instead of my college hours.
+So, here am I, just a year since I finished my master&amp;rsquo;s degree, working on my first [rather] big[ger] project and enjoying brave new world of real world data modeling problems.</description>
+    </item>
+    
+    <item>
+      <title>500 Lines or Less</title>
+      <link>https://ashald.net/posts/2018/08/09/500-lines-or-less/</link>
+      <pubDate>Thu, 09 Aug 2018 23:12:00 -0400</pubDate>
+      
+      <guid>https://ashald.net/posts/2018/08/09/500-lines-or-less/</guid>
+      <description>Being a huge fan of &amp;ldquo;The Architecture of Open Source Applications&amp;rdquo; series I was super excited when an announcement came in that call for reviewers was open for a new book called &amp;ldquo;500 Lines or Less&amp;rdquo;.
+The idea behind the book is that even though modern software became very complex and is based on sophisticated standards, some pretty complex systems can be implemented at least on the level of proof of concept in 500 lines of code or less.</description>
+    </item>
+    
+    <item>
+      <title>Chernobyl Nuclear Power Plant Zone of Alienation</title>
+      <link>https://ashald.net/posts/2017/05/09/chernobyl/</link>
+      <pubDate>Tue, 09 May 2017 20:03:44 -0400</pubDate>
+      
+      <guid>https://ashald.net/posts/2017/05/09/chernobyl/</guid>
+      <description>About 10 years ago I had a chance to visit Chernobyl Nuclear Power Plant Zone of Alienation. In fact, nowadays anybody can legally visit it one way or another. It is relatively safe out there and most of the territory is unrestricted - for instance, there are people living in the town of Chernobyl. But certain parts of The Zone are off limits.
+Among places that are off limits is the ghost town of _Pripyat_ - in order to enter it you need a special authorization.</description>
+    </item>
+    
+    <item>
+      <title>Yayoi Kusama - Infinity Mirrors</title>
+      <link>https://ashald.net/posts/2017/03/03/yayoi-kusama/</link>
+      <pubDate>Fri, 03 Mar 2017 20:03:44 -0500</pubDate>
+      
+      <guid>https://ashald.net/posts/2017/03/03/yayoi-kusama/</guid>
+      <description>Just a few months ago I didn&amp;rsquo;t know about Yayoi Kusama. And even if I heard her name, I&amp;rsquo;m sure I didn&amp;rsquo;t pay attention. As much as I enjoy modern art, I&amp;rsquo;ve got to appreciate it just recently and to the big surprise of surrounding people I miss a lot of common knowledge about it.
+Back in November I and Irena were in Japan, hunting for Momiji. On the night before going back we were hanging out with Andrew around Shinjuku, Tokyo and at some point, he mentioned that nearby there is a psychiatric hospital where one of his favorite artists dwells.</description>
+    </item>
+    
+    <item>
+      <title>Dupont Underground - A Guided Tour</title>
+      <link>https://ashald.net/posts/2017/01/18/dupont-underground/</link>
+      <pubDate>Wed, 18 Jan 2017 20:03:44 -0500</pubDate>
+      
+      <guid>https://ashald.net/posts/2017/01/18/dupont-underground/</guid>
+      <description>Although I&amp;rsquo;ve been living around Dupont Circle for about a year by now, I learned about Dupont Underground just recently and absolutely accidentally.
+Built around 70 years ago, it&amp;rsquo;s a set of underground tunnels and passages below Dupont Traffic Circle in Washington, DC. At that time there were streetcars (that&amp;rsquo;s &amp;ldquo;trams&amp;rdquo; outside of US) in the District and since Dupont Circle was already quite busy with cars, somebody came up with an idea to put streetcars underground, so they don&amp;rsquo;t get in the way of regular vehicles.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en-us"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Ashald  | Using Consul at Some Scale</title>
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i&amp;subset=latin-ext" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href='/css/normalize.css'>
+  <link rel="stylesheet" type="text/css" href='/css/screen.css'>
+
+  <link rel="stylesheet" type="text/css" href='/css/custom.css'>
+  
+  <link rel="stylesheet" type="text/css" href='/css/prism-tomorrow.min.css'>
+
+  <meta name="generator" content="Hugo 0.55.5" />
+
+  
+  
+    <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+  
+
+  <meta property="og:title" content="Using Consul at Some Scale" />
+<meta property="og:description" content="Scale I&rsquo;ve been using Consul since one of the first releases back in 2014 and have set it up multiple times in various environments - from standalone nodes for convenience purposes to multi-datacenter federated clusters partitioned over WAN and LAN segments.
+Over time, dealing with larger and larger setups, I learned some tricks that came handy as scale grew, especially once node and service counters start running in hundreds or thousands." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ashald.net/posts/2018/10/23/scale-consul/" />
+<meta property="article:published_time" content="2018-10-23T20:35:00-05:00"/>
+<meta property="article:modified_time" content="2018-10-23T20:35:00-05:00"/>
+
+<meta itemprop="name" content="Using Consul at Some Scale">
+<meta itemprop="description" content="Scale I&rsquo;ve been using Consul since one of the first releases back in 2014 and have set it up multiple times in various environments - from standalone nodes for convenience purposes to multi-datacenter federated clusters partitioned over WAN and LAN segments.
+Over time, dealing with larger and larger setups, I learned some tricks that came handy as scale grew, especially once node and service counters start running in hundreds or thousands.">
+
+
+<meta itemprop="datePublished" content="2018-10-23T20:35:00-05:00" />
+<meta itemprop="dateModified" content="2018-10-23T20:35:00-05:00" />
+<meta itemprop="wordCount" content="1502">
+
+
+
+<meta itemprop="keywords" content="tech," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Using Consul at Some Scale"/>
+<meta name="twitter:description" content="Scale I&rsquo;ve been using Consul since one of the first releases back in 2014 and have set it up multiple times in various environments - from standalone nodes for convenience purposes to multi-datacenter federated clusters partitioned over WAN and LAN segments.
+Over time, dealing with larger and larger setups, I learned some tricks that came handy as scale grew, especially once node and service counters start running in hundreds or thousands."/>
+</head>
+<body
+class="post-template tag-hash-violet tag-hash-post-violet"
+>
+    <div class="global-wrap">
+        <div class="section-content-wrap"><div class="section-header wrap">
+	<header class="header-wrap flex">
+		<div class="header-logo">
+      
+      <div class="is-logo"><a href="/"><img src="/images/logo.png" alt="Ashald"></a></div>
+      
+		</div>
+		<div class="header-nav">
+			<nav class="nav-wrap">
+				<label for="toggle" class="nav-label hamburger hamburger-minus">
+					<span class="hamburger-box">
+						<span class="hamburger-inner"></span>
+					</span>
+				</label>
+				<input type="checkbox" id="toggle" class="nav-toggle"><ul class="nav-list">
+  	
+
+	
+	
+
+	
+	<li class="nav-list-item">
+		<a href="/" class="nav-link" title="Blog Home">Home</a>
+		<span class="nav-dot"></span>
+	</li>
+	
+	<li class="nav-list-item">
+		<span class="nav-link">|</span>
+	</li>
+	
+	
+	<li class="nav-list-item">
+		<a href="/tags/" class="nav-link" title="Blog Tags">Tags</a>
+		<span class="nav-dot"></span>
+	</li>
+	
+	
+
+</ul>
+</nav>
+		</div>
+    
+		<div class="blog-description flex">Opinions are mine</div>
+		
+	</header>
+</div>
+
+<article>
+    <div
+        class='section-featured  no-featured-image '>
+        
+        <div class="featured-wrap flex">
+            <div class="featured-content">
+                <div class="tags-wrap">
+                    
+                    
+                    <a class="post-tag global-tag" href='/tags/tech'>tech</a>
+                    
+                </div>
+                <h1 class="white">Using Consul at Some Scale</h1>
+                <div class="item-meta white">
+                    <time datetime='2018-10-23T20:35:00'>2018-10-23</time>
+                    <span class="reading-time"><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <path d="M10.1907692,24 C4.5625628,24 0,19.4374372 0,13.8092308 C0,8.18102433 4.5625628,3.61846154 10.1907692,3.61846154 C15.8189757,3.61846154 20.3815385,8.18102433 20.3815385,13.8092308 C20.3815385,19.4374372 15.8189757,24 10.1907692,24 Z M10.1907692,22 C14.7144062,22 18.3815385,18.3328677 18.3815385,13.8092308 C18.3815385,9.28559383 14.7144062,5.61846154 10.1907692,5.61846154 C5.6671323,5.61846154 2,9.28559383 2,13.8092308 C2,18.3328677 5.6671323,22 10.1907692,22 Z" id="Oval"></path><path d="M7.53230769,2.32923077 C6.98002294,2.32923077 6.53230769,1.88151552 6.53230769,1.32923077 C6.53230769,0.776946019 6.98002294,0.329230769 7.53230769,0.329230769 L12.9225711,0.329230769 C13.4748559,0.329230769 13.9225711,0.776946019 13.9225711,1.32923077 C13.9225711,1.88151552 13.4748559,2.32923077 12.9225711,2.32923077 L7.53230769,2.32923077 Z" id="Line-2"></path><path d="M13.2928932,9.29289322 C13.6834175,8.90236893 14.3165825,8.90236893 14.7071068,9.29289322 C15.0976311,9.68341751 15.0976311,10.3165825 14.7071068,10.7071068 L10.897876,14.5163376 C10.5073517,14.9068618 9.87418674,14.9068618 9.48366245,14.5163376 C9.09313816,14.1258133 9.09313816,13.4926483 9.48366245,13.102124 L13.2928932,9.29289322 Z" id="Line"></path></svg> 8 min
+                        read<span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section-post wrap">
+        <div class='post-wrap no-image'>
+            
+            
+            
+
+<h2 id="scale">Scale</h2>
+
+<p>I&rsquo;ve been using <a href="https://www.consul.io/">Consul</a> since one of the first releases back in 2014 and have set it up multiple times in various environments - from standalone nodes for convenience purposes to multi-datacenter federated clusters partitioned over WAN and LAN segments.</p>
+
+<p>Over time, dealing with larger and larger setups, I learned some tricks that came handy as scale grew, especially once node and service counters start running in hundreds or thousands.</p>
+
+<p>I must note that I have not pushed Consul to its limits and my experience is not outstanding in any way as there seem to exist setups that are orders of magnitude larger than what I dealt with so far:</p>
+
+<p><blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Great milestone for the Consul team: hit highest known single-DC node count working with a user. 35,000 nodes in a <em>single</em> DC! (We have 10x larger <em>full</em> deployments but split across multiple DCs/segments, this is just one DC). This is an Alexa top 50 site, in production!</p>&mdash; Mitchell Hashimoto (@mitchellh) <a href="https://twitter.com/mitchellh/status/1032046587499827200?ref_src=twsrc%5Etfw">August 21, 2018</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+
+<p>On the other hand, I rarely see people talking about tweaks I&rsquo;ve been using, and I definitely would&rsquo;ve saved myself from many problems if I knew about them before I needed them.</p>
+
+<h2 id="scope">Scope</h2>
+
+<p>I only deal with Linux and assume there are no resource bottlenecks - as in, Consul is not starving on CPU/IO/RAM/etc.</p>
+
+<h2 id="stability">Stability</h2>
+
+<p>Few things make Consul servers way more stable and save time investigating sporadic API call failures. In other words, let&rsquo;s start by making sure that as few requests would fail as possible.</p>
+
+<h3 id="open-file-descriptors">Open File Descriptors</h3>
+
+<p>Opening a file takes a file descriptor. As well as opening a socket - and not only for listening for incoming connections but also for each connection that is kept open. It is especially crucial for Consul as it usually talks a lot via network - both to keep in touch with other nodes and to process API requests to update/retrieve service or KV records.</p>
+
+<p>Linux enforces limits on how many file descriptors given process can have. There is a system-wide limit that one can set via <code>sysctl</code> and there is a limit for any given process.</p>
+
+<p>The latter can be easily adjusted. In case of Systemd it would be just an entry under <code>Service</code> section:</p>
+
+<pre><code class="language-ini">[Service]
+LimitNOFILE=16384
+</code></pre>
+
+<p>and with Docker it&rsquo;s just an extra command line parameter:</p>
+
+<pre><code class="language-bash">$ docker run --ulimit nofile=16384 consul
+</code></pre>
+
+<p><br/></p>
+
+<h3 id="raft-multiplier">raft_multiplier</h3>
+
+<p>Of all items on the list, this one is closest to &ldquo;tweaking&rdquo; Consul itself. It&rsquo;s very well documented in <a href="https://www.consul.io/docs/guides/performance.html">Consul&rsquo;s performance guide</a>, but the bottom line is to put this into Consul Servers&rsquo; configuration:</p>
+
+<pre><code class="language-json">{
+  &quot;performance&quot;: {
+    &quot;raft_multiplier&quot;: 1
+  }
+}
+</code></pre>
+
+<p>This, essentially, speeds up leader failure detection and re-election and therefore minimizes the window when requests involving leader may fail.</p>
+
+<h3 id="stale-reads">Stale Reads</h3>
+
+<p>This topic is also briefly mentioned in <a href="https://www.consul.io/docs/guides/performance.html">Consul&rsquo;s performance guide</a>, but I think this is way under-appreciated optimization.</p>
+
+<p>In my experience, even in a federated setup with hundreds of nodes and services, may a KV entry or a service state change - this information would be propagated around very quickly. In a matter of 10th of milliseconds, when using <em>stale</em> reads. Such latencies are detectable only when one uses long-polling to listen for state changes. On top of that, I am not sure I ever saw health-checks being executed more often than once per second or few. It means that the propagation latency can be considered negligible.</p>
+
+<p>The <a href="https://www.consul.io/api/index.html#stale">official documentation</a> says (highlights are mine):</p>
+
+<pre><code class="language-markdown">This mode allows any server to service the read regardless of whether it is the leader. It means reads can be **arbitrarily** stale; however, results are generally consistent to within **50 milliseconds** of the leader. The trade-off is very fast and scalable reads with a higher likelihood of stale values. Since this mode **allows reads without a leader, a cluster that is unavailable would still be able to respond to queries**.
+</code></pre>
+
+<p>What does that mean? If we recall the CAP theorem - it means that we opt into AP, or in other words, being available in the face of a network partition. It might not be suitable for all cases, but in my experience, that&rsquo;s a safe assumption in 99% of them - to the degree that I <strong>always</strong> default to stale reads.</p>
+
+<p>Also, since reads are &ldquo;AP&rdquo; now - even leader failure would not impact data retrieval.</p>
+
+<h3 id="intervals">Intervals</h3>
+
+<p>When dealing with large distributed systems relying on time too much is not the best idea as high precision clocks are hard, they would drift away or won&rsquo;t be appropriately synchronized at all.</p>
+
+<p>Even though Consul&rsquo;s performance is such that durations are usually measured in milliseconds, that&rsquo;s not a sane precision in general purpose distributed system built on commodity hardware.</p>
+
+<p>Going an order of magnitude slower or two - at a per second precision - would simplify many things and would generally eliminate the need to worry about stale data, rate limits, abusive API clients and so on. Even though one can use long-polling to retrieve updates from Consul immediately, adding a second-scale interval before re-starting a watch would significantly reduce the load on both on Consul and on the software that processes updates. Going in batches is always more efficient and even may eliminate the need for processing updates if some of the services are flapping within the interval period (unless that&rsquo;s the goal).</p>
+
+<h2 id="reliability">Reliability</h2>
+
+<p>Approaching Consul from user&rsquo;s perspective &ldquo;reliability&rdquo; means not Consul&rsquo;s reliability but rather making sure that operations are executed are performed they way one expects, and there are as few unpredicted edge cases as possible.</p>
+
+<h3 id="durable-writes">Durable Writes</h3>
+
+<p>Speaking about <em>stale</em> consistency mode above, I only mentioned <em>reads</em> and not <em>writes</em>. To the best of my knowledge, <em>writes</em> are not subject to consistency modes, and this is also briefly mentioned in Consul&rsquo;s documentation:</p>
+
+<pre><code class="language-markdown">consistency query parameters will be ignored, since writes are always managed by the leader via the Raft consensus protocol
+</code></pre>
+
+<p>In other words, writes are durable by default, and one does not have to worry about consistency modes when modifying data.</p>
+
+<h3 id="federated-atomic-reads">Federated Atomic Reads</h3>
+
+<p>For a pretty long time by now, Consul has <a href="https://www.consul.io/api/txn.html">Transactions API</a> that can be used to perform atomic sets of operations. Unfortunately, I did not have a chance to measure its overhead yet, but it&rsquo;s a way to go if one needs to combine several operations of different types (read a key, modify another one or maybe delete it).</p>
+
+<p>Sometimes though one needs to fetch data from another data center in an &ldquo;atomic way&rdquo; - as in, imagine watching few KV sub-trees in a federated cluster. It may lead to unexpected results in the face of network issues, especially when they are intermittent - some of the watches can succeed while others may fail and fall into a retry loop.</p>
+
+<p>A &ldquo;trick&rdquo; around such a problem is to avoid watching several KV subtrees in a single context when talking to a federated cluster. Instead, one can watch a superset of all trees that should be monitored. While potentially resulting in more data transfer, this would make the whole process smoother as it&rsquo;s always would be easy to reason about the state of such a KV observation.</p>
+
+<h2 id="performance">Performance</h2>
+
+<p>When talking to Consul&rsquo;s APIs, one usually takes its performance for granted, but how exactly one talks to APIs can make a huge difference.</p>
+
+<h3 id="acls-for-performance">ACLs for performance</h3>
+
+<p>Consul&rsquo;s KV operations can be performed either on individual entries or entire sub-trees. Catalog operations are usually performed on particular service or node entries. Nevertheless, when dealing with large clusters, one may face situations when it&rsquo;s impossible to filter out unnecessary data.</p>
+
+<p>Watching a service state on a few particular nodes would result in either several watches with complicated synchronization or watching service state across the whole cluster and then extracting a tiny piece of the retrieved data.</p>
+
+<p>Same goes for KV - as in the example with federated atomic reads, one may need to watch the entire KV tree to be able to detect changes in a few key entries under different paths.</p>
+
+<p>It might be an un-obvious solution, but ACLs can be a great help with that. In most cases, it&rsquo;s pretty easy to create a Consul access token with ACL rules that would restrict available data to only those that are needed. It may not only tremendously reduce data transfer but also reduce the load by skipping updates to irrelevant data and even simplify the data filtering on its own, given that the ACL rules engine is domain specific.</p>
+
+<h3 id="http-2">HTTP/2</h3>
+
+<p>Since version <code>1.0.1</code> Consul API supports HTTP/2 when TLS is enabled, which means that one can utilize persistent connections and multiplex many API calls over a single TCP connection. It reduces overhead on establishing new connections and also reduces the need for file descriptors on Consul agents that serve many API calls.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>While Consul&rsquo;s documentation has many excellent guides on optimizing Consul&rsquo;s performance, stability and reliability, there is a lot that can be done from a user&rsquo;s perspective. Not only such &ldquo;tricks&rdquo; can make Consul&rsquo;s life easier but also can simplify applications that are talking to Consul APIs.</p>
+
+        </div>
+        <div class="post-meta">
+            <div class="post-share">
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=Using%20Consul%20at%20Some%20Scale&amp;url=https%3a%2f%2fashald.net%2fposts%2f2018%2f10%2f23%2fscale-consul%2f"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"/></svg></a>
+                <a class="copy" id="copy" data-clipboard-target="#link-value"><svg role="img" viewBox="0 0 33 24" xmlns="http://www.w3.org/2000/svg"><path d="M27.3999996,13.4004128 L21.7999996,13.4004128 L21.7999996,19 L18.9999996,19 L18.9999996,13.4004128 L13.3999996,13.4004128 L13.3999996,10.6006192 L18.9999996,10.6006192 L18.9999996,5 L21.7999996,5 L21.7999996,10.6006192 L27.3999996,10.6006192 L27.3999996,13.4004128 Z M12,20.87 C7.101,20.87 3.13,16.898 3.13,12 C3.13,7.102 7.101,3.13 12,3.13 C12.091,3.13 12.181,3.139 12.272,3.142 C9.866,5.336 8.347,8.487 8.347,12 C8.347,15.512 9.866,18.662 12.271,20.857 C12.18,20.859 12.091,20.87 12,20.87 Z M20.347,0 C18.882,0 17.484,0.276 16.186,0.756 C14.882,0.271 13.473,0 12,0 C5.372,0 0,5.373 0,12 C0,18.628 5.372,24 12,24 C13.471,24 14.878,23.726 16.181,23.242 C17.481,23.724 18.88,24 20.347,24 C26.975,24 32.347,18.628 32.347,12 C32.347,5.373 26.975,0 20.347,0 Z"></path></svg></a>
+                <span class="copy-popup">The link has been copied!</span>
+                <input type="text" value="https://ashald.net/posts/2018/10/23/scale-consul/" id="link-value">
+                <a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fashald.net%2fposts%2f2018%2f10%2f23%2fscale-consul%2f"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.676 0H1.324C.593 0 0 .593 0 1.324v21.352C0 23.408.593 24 1.324 24h11.494v-9.294H9.689v-3.621h3.129V8.41c0-3.099 1.894-4.785 4.659-4.785 1.325 0 2.464.097 2.796.141v3.24h-1.921c-1.5 0-1.792.721-1.792 1.771v2.311h3.584l-.465 3.63H16.56V24h6.115c.733 0 1.325-.592 1.325-1.324V1.324C24 .593 23.408 0 22.676 0"/></svg></a>
+            </div>
+        </div>
+    </div>
+</article>
+
+<aside class="section-prev-next">
+    <div class="prev-next-wrap">
+        
+        <a href="https://ashald.net/posts/2018/10/24/consul-acls-nginx/"
+            class="prev-post  tag-hash-violet  tag-hash-post-violet  tag-hash-large  ">
+            
+            <section class="prev-next-title">
+                <h5>Newer Post</h5>
+                <h3>Consul KV Store ACLs as an authorization engine for Nginx</h3>
+            </section>
+        </a>
+        
+        
+        <a href="https://ashald.net/posts/2018/08/14/bash-templating/"
+            class="next-post  tag-hash-orange  tag-hash-post-orange  ">
+            
+            <section class="prev-next-title">
+                <h5>Older Post</h5>
+                <h3>Templating with Bash</h3>
+            </section>
+        </a>
+        
+    </div>
+</aside>
+
+<script src='/js/post.js'></script>
+<script src='/js/prism.min.js'></script>
+<script src='/js/prism-bash.min.js'></script>
+<script src='/js/prism-python.min.js'></script>
+<script src='/js/prism-json.min.js'></script>
+<script src='/js/prism-ini.min.js'></script>
+<script src='/js/prism-markdown.min.js'></script>
+
+
+      </div><footer class="section-footer">
+	<div class="footer-wrap wrap flex">
+		<div class="footer-logo flex">
+      
+      <div class="is-logo"><a href="https://ashald.net/"><img src="/images/logo.png" alt="Ashald"></a></div>
+      
+		</div>
+		<div class="footer-nav"><ul class="nav-list">
+  	
+
+	
+	
+
+	
+	<li class="nav-list-item">
+		<a href="/" class="nav-link" title="Blog Home">Home</a>
+		<span class="nav-dot"></span>
+	</li>
+	
+	<li class="nav-list-item">
+		<span class="nav-link">|</span>
+	</li>
+	
+	
+	<li class="nav-list-item">
+		<a href="/tags/" class="nav-link" title="Blog Tags">Tags</a>
+		<span class="nav-dot"></span>
+	</li>
+	
+	
+
+</ul>
+</div>
+		<div class="footer-social-links flex">
+			
+				
+					
+					<a href="https://twitter.com/ashald"><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"/></svg></a>
+				
+			
+				
+					
+					<a href="https://www.instagram.com/xashald/"><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/></svg></a>
+				
+			
+				
+					
+					<a href="https://github.com/Ashald"><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+				
+			
+		</div>
+	</div>
+  	<div class="footer-copyright">
+		
+	</div>
+</footer>
+
+<script src="/js/global.js"></script>
+<script src="/js/custom.js"></script>
+</body>
+</html>
