@@ -81,3 +81,34 @@ window.addEventListener("load", function(event) {
 
 // document.querySelectorAll(".post-wrap h1, .post-wrap h2, .post-wrap h3, .post-wrap h4, .post-wrap h5, .post-wrap h6")
 //    wrap into links
+
+document.addEventListener("keydown", function(event) {
+    var diff = 0;
+    if (event.keyCode == 37) {
+        diff = -1
+    } else if (event.keyCode == 39) {
+        diff = 1
+    }
+    if (diff === 0) {
+        return
+    }
+
+    let current = zoom.getZoomedImage();
+    if (current == null) {
+        return
+    }
+    let allImages = zoom.getImages();
+    let currentIdnex = allImages.indexOf(current);
+    let nextIndex = currentIdnex + diff;
+    if (nextIndex < 0 || nextIndex > allImages.length - 1) {
+        return
+    }
+    let next = allImages[nextIndex];
+
+    // zoom.close();
+    zoom.close().then(function(value) {
+        next.scrollIntoView();
+        zoom.open({"target": next});
+      });
+    
+})
