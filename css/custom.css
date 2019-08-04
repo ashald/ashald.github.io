@@ -185,3 +185,13 @@ twitter-widget, twitterwidget {
 .no-featured .section-loop {
     margin-top: 10vh;
 }
+
+/* Dark version */
+
+.global-hash-dark-version .is-logo {
+    filter: invert(100);
+}
+
+.global-hash-dark-version figure figcaption {
+    filter: invert(100);
+}
