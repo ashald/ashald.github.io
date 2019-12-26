@@ -1525,7 +1525,7 @@ a:focus {
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .post-share {
     position: absolute;
-    z-index: 99;
+    z-index: 9;
     bottom: -30px;
     display: -webkit-inline-box;
     display: -ms-inline-flexbox;
