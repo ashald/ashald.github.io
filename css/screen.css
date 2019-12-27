@@ -703,7 +703,7 @@ a:focus {
     overflow: hidden;
     width: calc(50% - 130px);
     border-radius: 5px;
-    background: no-repeat center center;
+    background: no-repeat left center;
     background-size: cover;
 }
 
@@ -724,6 +724,7 @@ a:focus {
 
 /* Background Color
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
+.tag-hash-featured .white,
 .tag-hash-post-violet .no-featured-image .white a,
 .tag-hash-post-violet .no-featured-image .white,
 .tag-hash-post-green .no-featured-image .white a,
@@ -874,13 +875,6 @@ a:focus {
         margin-left: 1px;
         padding: 4px 6px;
     }
-}
-
-@media (min-width:480px) {
-    .section-scrollable.is-draggable + .scrollable-nav {
-        display: initial;
-    }
-
 }
 
 @media (min-width:480px) and (max-width:767px) {
@@ -1087,6 +1081,10 @@ a:focus {
         border-radius: 0 5px 5px 0;
     }
 
+    .featured-image.full-image {
+        width: 100%;
+    }
+
     .tag-hash-full-image .featured-image,
     .tag-hash-post-violet .no-featured-image,
     .tag-hash-post-green .no-featured-image,
@@ -1120,6 +1118,10 @@ a:focus {
         overflow: hidden;
         width: calc(100% - 170px);
         border-radius: 5px;
+    }
+
+    .featured-image.full-image {
+        width: calc(100% - 170px);
     }
 
 }
