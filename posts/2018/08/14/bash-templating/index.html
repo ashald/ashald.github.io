@@ -9,14 +9,13 @@
 
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i&amp;subset=latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" type="text/css" href='/css/normalize.css'>
   <link rel="stylesheet" type="text/css" href='/css/screen.css'>
 
   <link rel="stylesheet" type="text/css" href='/css/custom.css'>
   
   <link rel="stylesheet" type="text/css" href='/css/prism-tomorrow.min.css'>
 
-  <meta name="generator" content="Hugo 0.55.5" />
+  <meta name="generator" content="Hugo 0.88.1" />
 
   
   
@@ -26,30 +25,23 @@
   <meta property="og:title" content="Templating with Bash" />
 <meta property="og:description" content="While scripting in Bash, pretty often there is a need to generate a file or few. Some of the configuration options might not be known until the just-before application start or might need to be derived from the environment or context.
 Environment Variable Substitution One off One of the most common ways to generate a configuration file is by using heredoc literal:
-$ SERVER_IP=0.0.0.0 SERVER_PORT=12345 cat &gt; config.json &lt;&lt; EOF &gt; { &gt; &quot;ip&quot;: &quot;${SERVER_IP}&quot;, &gt; &quot;port&quot;: ${SERVER_PORT} &gt; } &gt; EOF  as simple as that, it&rsquo;s hard to beat it in terms of convenience as you don&rsquo;t need to worry about many things such as escaping quotes, worry about newlines and so on." />
+$ SERVER_IP=0.0.0.0 SERVER_PORT=12345 cat &gt; config.json &lt;&lt; EOF &gt; { &gt; &#34;ip&#34;: &#34;${SERVER_IP}&#34;, &gt; &#34;port&#34;: ${SERVER_PORT} &gt; } &gt; EOF as simple as that, it&rsquo;s hard to beat it in terms of convenience as you don&rsquo;t need to worry about many things such as escaping quotes, worry about newlines and so on." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://ashald.net/posts/2018/08/14/bash-templating/" />
-<meta property="article:published_time" content="2018-08-14T13:07:00-04:00"/>
-<meta property="article:modified_time" content="2018-08-14T13:07:00-04:00"/>
+<meta property="og:url" content="https://ashald.net/posts/2018/08/14/bash-templating/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2018-08-14T13:07:00-04:00" />
+<meta property="article:modified_time" content="2018-08-14T13:07:00-04:00" />
 
 <meta itemprop="name" content="Templating with Bash">
 <meta itemprop="description" content="While scripting in Bash, pretty often there is a need to generate a file or few. Some of the configuration options might not be known until the just-before application start or might need to be derived from the environment or context.
 Environment Variable Substitution One off One of the most common ways to generate a configuration file is by using heredoc literal:
-$ SERVER_IP=0.0.0.0 SERVER_PORT=12345 cat &gt; config.json &lt;&lt; EOF &gt; { &gt; &quot;ip&quot;: &quot;${SERVER_IP}&quot;, &gt; &quot;port&quot;: ${SERVER_PORT} &gt; } &gt; EOF  as simple as that, it&rsquo;s hard to beat it in terms of convenience as you don&rsquo;t need to worry about many things such as escaping quotes, worry about newlines and so on.">
-
-
-<meta itemprop="datePublished" content="2018-08-14T13:07:00-04:00" />
+$ SERVER_IP=0.0.0.0 SERVER_PORT=12345 cat &gt; config.json &lt;&lt; EOF &gt; { &gt; &#34;ip&#34;: &#34;${SERVER_IP}&#34;, &gt; &#34;port&#34;: ${SERVER_PORT} &gt; } &gt; EOF as simple as that, it&rsquo;s hard to beat it in terms of convenience as you don&rsquo;t need to worry about many things such as escaping quotes, worry about newlines and so on."><meta itemprop="datePublished" content="2018-08-14T13:07:00-04:00" />
 <meta itemprop="dateModified" content="2018-08-14T13:07:00-04:00" />
 <meta itemprop="wordCount" content="1078">
-
-
-
-<meta itemprop="keywords" content="tech," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="tech," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Templating with Bash"/>
 <meta name="twitter:description" content="While scripting in Bash, pretty often there is a need to generate a file or few. Some of the configuration options might not be known until the just-before application start or might need to be derived from the environment or context.
 Environment Variable Substitution One off One of the most common ways to generate a configuration file is by using heredoc literal:
-$ SERVER_IP=0.0.0.0 SERVER_PORT=12345 cat &gt; config.json &lt;&lt; EOF &gt; { &gt; &quot;ip&quot;: &quot;${SERVER_IP}&quot;, &gt; &quot;port&quot;: ${SERVER_PORT} &gt; } &gt; EOF  as simple as that, it&rsquo;s hard to beat it in terms of convenience as you don&rsquo;t need to worry about many things such as escaping quotes, worry about newlines and so on."/>
+$ SERVER_IP=0.0.0.0 SERVER_PORT=12345 cat &gt; config.json &lt;&lt; EOF &gt; { &gt; &#34;ip&#34;: &#34;${SERVER_IP}&#34;, &gt; &#34;port&#34;: ${SERVER_PORT} &gt; } &gt; EOF as simple as that, it&rsquo;s hard to beat it in terms of convenience as you don&rsquo;t need to worry about many things such as escaping quotes, worry about newlines and so on."/>
 </head>
 <body class='global-hash-dark-version
 post-template tag-hash-orange tag-hash-post-orange
@@ -125,231 +117,150 @@ post-template tag-hash-orange tag-hash-post-orange
         <div class='post-wrap no-image'>
             
             
-            
-
-<p>While scripting in Bash, pretty often there is a need to generate a file or few. Some of the configuration options might not be known until the just-before application start or might need to be derived from the environment or context.</p>
-
+            <p>While scripting in Bash, pretty often there is a need to generate a file or few. Some of the configuration options might not be known until the just-before application start or might need to be derived from the environment or context.</p>
 <h2 id="environment-variable-substitution">Environment Variable Substitution</h2>
-
 <h3 id="one-off">One off</h3>
-
 <p>One of the most common ways to generate a configuration file is by using <a href="https://en.wikipedia.org/wiki/Here_document">heredoc literal</a>:</p>
-
-<pre><code class="language-bash">$ SERVER_IP=0.0.0.0 SERVER_PORT=12345 cat &gt; config.json &lt;&lt; EOF
-&gt; {
-&gt;   &quot;ip&quot;: &quot;${SERVER_IP}&quot;,
-&gt;   &quot;port&quot;: ${SERVER_PORT}
-&gt; }
-&gt; EOF
-</code></pre>
-
-<p>as simple as that, it&rsquo;s hard to beat it in terms of convenience as you don&rsquo;t need to worry about many things such as escaping quotes, worry about newlines and so on. We should remember that <code>EOF</code> we see on the first line is an arbitrary string literal and whatever it is, it should be used to terminate the <code>heredoc</code>.</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ SERVER_IP<span style="color:#f92672">=</span>0.0.0.0 SERVER_PORT<span style="color:#f92672">=</span><span style="color:#ae81ff">12345</span> cat &gt; config.json <span style="color:#e6db74">&lt;&lt; EOF
+</span><span style="color:#e6db74">&gt; {
+</span><span style="color:#e6db74">&gt;   &#34;ip&#34;: &#34;${SERVER_IP}&#34;,
+</span><span style="color:#e6db74">&gt;   &#34;port&#34;: ${SERVER_PORT}
+</span><span style="color:#e6db74">&gt; }
+</span><span style="color:#e6db74">&gt; EOF</span>
+</code></pre></div><p>as simple as that, it&rsquo;s hard to beat it in terms of convenience as you don&rsquo;t need to worry about many things such as escaping quotes, worry about newlines and so on. We should remember that <code>EOF</code> we see on the first line is an arbitrary string literal and whatever it is, it should be used to terminate the <code>heredoc</code>.</p>
 <p>We can verify the statement above very easily:</p>
-
-<pre><code class="language-bash">$ ls -1
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ls -1
 config.json
-</code></pre>
-
-<pre><code class="language-bash">$ cat config.json
-{
-  &quot;ip&quot;: &quot;0.0.0.0&quot;,
-  &quot;port&quot;: 12345
-}
-</code></pre>
-
-<h3 id="multiple-files">Multiple files</h3>
-
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat config.json
+<span style="color:#f92672">{</span>
+  <span style="color:#e6db74">&#34;ip&#34;</span>: <span style="color:#e6db74">&#34;0.0.0.0&#34;</span>,
+  <span style="color:#e6db74">&#34;port&#34;</span>: <span style="color:#ae81ff">12345</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h3 id="multiple-files">Multiple files</h3>
 <p>The <code>heredoc</code> literal works great until there is a need to deal with an arbitrary number of config files that have to be processed. When that happens, the one needs some script to render a bunch of files by substituting environment variables in them. Luckily, <code>envsubst</code> from <code>gettext</code> package is to the rescue.</p>
-
 <p>Let&rsquo;s say we want to create a script called <code>render.sh</code> that would take a path to a directory as an argument, find all files like <code>foo.in</code> inside and render them by substituting environment variables into <code>foo</code>.</p>
-
-<pre><code class="language-bash">$ cat &gt; render.sh &lt;&lt; 'EOF'
-&gt; #!/usr/bin/env bash
-&gt; target=&quot;${1}&quot;
-&gt; templates=$(find ${target} -type f -name &quot;*.in&quot; | xargs echo)
-&gt; for sourcePath in ${templates}; do
-&gt;   targetPath=$(echo ${sourcePath} | rev | cut -c4- | rev)
-&gt;   rm -f ${targetPath}
-&gt;   envsubst &lt; ${sourcePath} &gt; ${targetPath}
-&gt;   chmod --reference=${sourcePath} ${targetPath}
-&gt; done
-&gt; EOF
-</code></pre>
-
-<p>Here we use the same <code>heredoc</code> literal but wrap the <code>EOF</code> on the 1st line into quotes (both single and double quotes can be used). It would prevent environment variables from substitution - exactly what we want when use <code>heredoc</code> to write a script to a file.</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat &gt; render.sh <span style="color:#e6db74">&lt;&lt; &#39;EOF&#39;
+</span><span style="color:#e6db74">&gt; #!/usr/bin/env bash
+</span><span style="color:#e6db74">&gt; target=&#34;${1}&#34;
+</span><span style="color:#e6db74">&gt; templates=$(find ${target} -type f -name &#34;*.in&#34; | xargs echo)
+</span><span style="color:#e6db74">&gt; for sourcePath in ${templates}; do
+</span><span style="color:#e6db74">&gt;   targetPath=$(echo ${sourcePath} | rev | cut -c4- | rev)
+</span><span style="color:#e6db74">&gt;   rm -f ${targetPath}
+</span><span style="color:#e6db74">&gt;   envsubst &lt; ${sourcePath} &gt; ${targetPath}
+</span><span style="color:#e6db74">&gt;   chmod --reference=${sourcePath} ${targetPath}
+</span><span style="color:#e6db74">&gt; done
+</span><span style="color:#e6db74">&gt; EOF</span>
+</code></pre></div><p>Here we use the same <code>heredoc</code> literal but wrap the <code>EOF</code> on the 1st line into quotes (both single and double quotes can be used). It would prevent environment variables from substitution - exactly what we want when use <code>heredoc</code> to write a script to a file.</p>
 <p>Now let&rsquo;s make it executable:</p>
-
-<pre><code class="language-bash">$ chmod +x render.sh
-</code></pre>
-
-<p>And create a sample template:</p>
-
-<pre><code class="language-bash">$ cat &gt; config.json.in &lt;&lt; 'EOF'
-&gt; {
-&gt;   &quot;ip&quot;: &quot;${SERVER_IP}&quot;,
-&gt;   &quot;port&quot;: ${SERVER_PORT}
-&gt; }
-&gt; EOF
-</code></pre>
-
-<p>At this point we&rsquo;re ready to give it a try:</p>
-
-<pre><code class="language-bash">$ SERVER_IP=0.0.0.0 SERVER_PORT=12345 ./render.sh .
-</code></pre>
-
-<p>Let&rsquo;s make sure that <code>config.json.in</code> was rendered into <code>config.json</code>:</p>
-
-<pre><code class="language-bash">$ ls -1
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ chmod +x render.sh
+</code></pre></div><p>And create a sample template:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat &gt; config.json.in <span style="color:#e6db74">&lt;&lt; &#39;EOF&#39;
+</span><span style="color:#e6db74">&gt; {
+</span><span style="color:#e6db74">&gt;   &#34;ip&#34;: &#34;${SERVER_IP}&#34;,
+</span><span style="color:#e6db74">&gt;   &#34;port&#34;: ${SERVER_PORT}
+</span><span style="color:#e6db74">&gt; }
+</span><span style="color:#e6db74">&gt; EOF</span>
+</code></pre></div><p>At this point we&rsquo;re ready to give it a try:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ SERVER_IP<span style="color:#f92672">=</span>0.0.0.0 SERVER_PORT<span style="color:#f92672">=</span><span style="color:#ae81ff">12345</span> ./render.sh .
+</code></pre></div><p>Let&rsquo;s make sure that <code>config.json.in</code> was rendered into <code>config.json</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ls -1
 config.json
 config.json.in
 render.sh
-</code></pre>
-
-<p>And check its content:</p>
-
-<pre><code class="language-bash">$ cat config.json
-{
-  &quot;ip&quot;: &quot;0.0.0.0&quot;,
-  &quot;port&quot;: 12345
-}
-</code></pre>
-
-<p>So far so good!</p>
-
+</code></pre></div><p>And check its content:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat config.json
+<span style="color:#f92672">{</span>
+  <span style="color:#e6db74">&#34;ip&#34;</span>: <span style="color:#e6db74">&#34;0.0.0.0&#34;</span>,
+  <span style="color:#e6db74">&#34;port&#34;</span>: <span style="color:#ae81ff">12345</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>So far so good!</p>
 <h2 id="command-evaluation">Command Evaluation</h2>
-
 <p>Unfortunately, sometimes that&rsquo;s not enough.</p>
-
 <p>Occasionally the one needs to execute some commands to derive values from the runtime environment or to make a more sophisticated decision about the value that should be used.</p>
-
 <p>Let&rsquo;s say there is an environment variable <code>${MNEMONIC}</code> that we want to look at and depending on its value we want to adjust our <code>port</code> number to be <code>1000</code> in <code>dev</code>, <code>2000</code> in <code>prod</code> or equal to our user id otherwise. On top of that, we want <code>ip</code> to be the address assigned to the interface that is used to access the default gateway. Crazy, right? Let&rsquo;s add one more field and call it <code>proto</code> - it should default to <code>http</code> unless another value is provided via environment variable called <code>PROTOCOL</code>.</p>
-
 <p>Each of the above can be done with Bash quite easily.</p>
-
 <p>We would use <code>case</code> statement for the 1st problem:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ MNEMONIC<span style="color:#f92672">=</span>dev bash -c <span style="color:#e6db74">&#39;case ${MNEMONIC} in dev) echo 1000;; prod) echo 2000;; *) echo $(id -u);; esac&#39;</span>
+<span style="color:#ae81ff">1000</span>
 
-<pre><code class="language-bash">$ MNEMONIC=dev bash -c 'case ${MNEMONIC} in dev) echo 1000;; prod) echo 2000;; *) echo $(id -u);; esac'
-1000
+$ MNEMONIC<span style="color:#f92672">=</span>prod bash -c <span style="color:#e6db74">&#39;case ${MNEMONIC} in dev) echo 1000;; prod) echo 2000;; *) echo $(id -u);; esac&#39;</span>
+<span style="color:#ae81ff">2000</span>
 
-$ MNEMONIC=prod bash -c 'case ${MNEMONIC} in dev) echo 1000;; prod) echo 2000;; *) echo $(id -u);; esac'
-2000
-
-$ bash -c 'case ${MNEMONIC} in dev) echo 1000;; prod) echo 2000;; *) echo $(id -u);; esac'
-3501
-</code></pre>
-
-<p>The last output would be different for everybody.</p>
-
+$ bash -c <span style="color:#e6db74">&#39;case ${MNEMONIC} in dev) echo 1000;; prod) echo 2000;; *) echo $(id -u);; esac&#39;</span>
+<span style="color:#ae81ff">3501</span>
+</code></pre></div><p>The last output would be different for everybody.</p>
 <p>And the 2nd one is a cascade of <code>ip</code> and <code>grep</code> invocations:</p>
-
-<pre><code class="language-bash">$ ip a show $(ip r | grep -oP 'default .* \K.+') | grep -oP 'inet \K[\d\.]+'
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ip a show <span style="color:#66d9ef">$(</span>ip r | grep -oP <span style="color:#e6db74">&#39;default .* \K.+&#39;</span><span style="color:#66d9ef">)</span> | grep -oP <span style="color:#e6db74">&#39;inet \K[\d\.]+&#39;</span>
 10.75.53.12
-</code></pre>
-
-<p>The last one is the easiest one - we just going to use &ldquo;default value&rdquo; construct available in <code>bash</code>:</p>
-
-<pre><code class="language-bash">$ bash -c 'echo ${PROTOCOL:-http}'
+</code></pre></div><p>The last one is the easiest one - we just going to use &ldquo;default value&rdquo; construct available in <code>bash</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bash -c <span style="color:#e6db74">&#39;echo ${PROTOCOL:-http}&#39;</span>
 http
 
-$ PROTOCOL=https bash -c 'echo ${PROTOCOL:-http}'
+$ PROTOCOL<span style="color:#f92672">=</span>https bash -c <span style="color:#e6db74">&#39;echo ${PROTOCOL:-http}&#39;</span>
 https
-</code></pre>
-
-<p><br/></p>
-
+</code></pre></div><!-- raw HTML omitted -->
 <h3 id="one-off-1">One-off</h3>
-
 <p>How would we fit the above commands into our template when dealing with a single file? We would use the same <code>heredoc</code> literal as before!</p>
-
-<pre><code class="language-bash">$ cat &gt; config.json &lt;&lt; EOF
-&gt; {
-&gt;   &quot;ip&quot;: &quot;$(ip a show $(ip r | grep -oP 'default .* \K.+') | grep -oP 'inet \K[\d\.]+')&quot;,
-&gt;   &quot;port&quot;: $(case ${MNEMONIC} in dev) echo 1000;; prod) echo 2000;; *) echo $(id -u);; esac),
-&gt;   &quot;proto&quot;: &quot;${PROTOCOL:-http}&quot;
-&gt; }
-&gt; EOF
-</code></pre>
-
-<p>And let&rsquo;s just verify that everything is as expected:</p>
-
-<pre><code class="language-bash">$ ls -1
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat &gt; config.json <span style="color:#e6db74">&lt;&lt; EOF
+</span><span style="color:#e6db74">&gt; {
+</span><span style="color:#e6db74">&gt;   &#34;ip&#34;: &#34;$(ip a show $(ip r | grep -oP &#39;default .* \K.+&#39;) | grep -oP &#39;inet \K[\d\.]+&#39;)&#34;,
+</span><span style="color:#e6db74">&gt;   &#34;port&#34;: $(case ${MNEMONIC} in dev) echo 1000;; prod) echo 2000;; *) echo $(id -u);; esac),
+</span><span style="color:#e6db74">&gt;   &#34;proto&#34;: &#34;${PROTOCOL:-http}&#34;
+</span><span style="color:#e6db74">&gt; }
+</span><span style="color:#e6db74">&gt; EOF</span>
+</code></pre></div><p>And let&rsquo;s just verify that everything is as expected:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ls -1
 config.json
-</code></pre>
-
-<pre><code class="language-bash">$ cat config.json
-{
-  &quot;ip&quot;: &quot;10.75.53.12&quot;,
-  &quot;port&quot;: 3501,
-  &quot;proto&quot;: &quot;http&quot;
-}
-</code></pre>
-
-<p><br/></p>
-
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat config.json
+<span style="color:#f92672">{</span>
+  <span style="color:#e6db74">&#34;ip&#34;</span>: <span style="color:#e6db74">&#34;10.75.53.12&#34;</span>,
+  <span style="color:#e6db74">&#34;port&#34;</span>: 3501,
+  <span style="color:#e6db74">&#34;proto&#34;</span>: <span style="color:#e6db74">&#34;http&#34;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><!-- raw HTML omitted -->
 <h3 id="multiple-files-1">Multiple files</h3>
-
 <p>As one would expect from its name, command evaluation is beyond <code>envsubst</code> capabilities. Not only that, even &ldquo;default value&rdquo; construct as in <code>bash</code> is not supported.</p>
-
 <p>Luckily, there is still a way around. We would use <code>eval</code> builtin function from <code>bash</code> and will feed it with <code>cat</code> and another <code>heredoc</code> literal. This is what it takes to process an arbitrary input while making sure that we will preserve all the quotes, whitespaces etc:</p>
-
-<pre><code class="language-bash">$ cat &gt; render.sh &lt;&lt; 'EOF'
-&gt; #!/usr/bin/env bash
-&gt; target=&quot;${1}&quot;
-&gt; templates=$(find ${target} -type f -name &quot;*.in&quot; | xargs echo)
-&gt; for sourcePath in ${templates}; do
-&gt;   targetPath=$(echo ${sourcePath} | rev | cut -c4- | rev)
-&gt;   rm -f ${targetPath}
-&gt;     eval &quot;cat &lt;&lt;END
-&gt; $(&lt;${sourcePath})
-&gt; END
-&gt; &quot; &gt; ${targetPath}
-&gt;   chmod --reference=${sourcePath} ${targetPath}
-&gt; done
-&gt; EOF
-</code></pre>
-
-<p>While it should be obvious, we still must stress that &ldquo;templates&rdquo; processed with such a rendered are as good as an arbitrary script and therefore one should not accept them from untrusted sources.</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat &gt; render.sh <span style="color:#e6db74">&lt;&lt; &#39;EOF&#39;
+</span><span style="color:#e6db74">&gt; #!/usr/bin/env bash
+</span><span style="color:#e6db74">&gt; target=&#34;${1}&#34;
+</span><span style="color:#e6db74">&gt; templates=$(find ${target} -type f -name &#34;*.in&#34; | xargs echo)
+</span><span style="color:#e6db74">&gt; for sourcePath in ${templates}; do
+</span><span style="color:#e6db74">&gt;   targetPath=$(echo ${sourcePath} | rev | cut -c4- | rev)
+</span><span style="color:#e6db74">&gt;   rm -f ${targetPath}
+</span><span style="color:#e6db74">&gt;     eval &#34;cat &lt;&lt;END
+</span><span style="color:#e6db74">&gt; $(&lt;${sourcePath})
+</span><span style="color:#e6db74">&gt; END
+</span><span style="color:#e6db74">&gt; &#34; &gt; ${targetPath}
+</span><span style="color:#e6db74">&gt;   chmod --reference=${sourcePath} ${targetPath}
+</span><span style="color:#e6db74">&gt; done
+</span><span style="color:#e6db74">&gt; EOF</span>
+</code></pre></div><p>While it should be obvious, we still must stress that &ldquo;templates&rdquo; processed with such a rendered are as good as an arbitrary script and therefore one should not accept them from untrusted sources.</p>
 <p>Now let&rsquo;s write an updated template:</p>
-
-<pre><code class="language-bash">$ cat &gt; config.json.in &lt;&lt; 'EOF'
-&gt; {
-&gt;   &quot;ip&quot;: &quot;$(ip a show $(ip r | grep -oP 'default .* \K.+') | grep -oP 'inet \K[\d\.]+')&quot;,
-&gt;   &quot;port&quot;: $(case ${MNEMONIC} in dev) echo 1000;; prod) echo 2000;; *) echo $(id -u);; esac),
-&gt;   &quot;proto&quot;: &quot;${PROTOCOL:-http}&quot;
-&gt; }
-&gt; EOF
-</code></pre>
-
-<p>And then render it:</p>
-
-<pre><code class="language-bash">$ MNEMONIC=dev PROTOCOL=https ./render.sh .
-</code></pre>
-
-<p>The only thing that is left is to verify the generated file:</p>
-
-<pre><code class="language-bash">$ ls -1
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat &gt; config.json.in <span style="color:#e6db74">&lt;&lt; &#39;EOF&#39;
+</span><span style="color:#e6db74">&gt; {
+</span><span style="color:#e6db74">&gt;   &#34;ip&#34;: &#34;$(ip a show $(ip r | grep -oP &#39;default .* \K.+&#39;) | grep -oP &#39;inet \K[\d\.]+&#39;)&#34;,
+</span><span style="color:#e6db74">&gt;   &#34;port&#34;: $(case ${MNEMONIC} in dev) echo 1000;; prod) echo 2000;; *) echo $(id -u);; esac),
+</span><span style="color:#e6db74">&gt;   &#34;proto&#34;: &#34;${PROTOCOL:-http}&#34;
+</span><span style="color:#e6db74">&gt; }
+</span><span style="color:#e6db74">&gt; EOF</span>
+</code></pre></div><p>And then render it:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ MNEMONIC<span style="color:#f92672">=</span>dev PROTOCOL<span style="color:#f92672">=</span>https ./render.sh .
+</code></pre></div><p>The only thing that is left is to verify the generated file:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ls -1
 config.json
 config.json.in
 render.sh
-</code></pre>
-
-<p>And its content:</p>
-
-<pre><code class="language-bash">$ cat config.json
-{
-  &quot;ip&quot;: &quot;10.75.53.12&quot;,
-  &quot;port&quot;: 1000,
-  &quot;proto&quot;: &quot;https&quot;
-}
-</code></pre>
-
-<p>Done like a terribly cooked steak!</p>
+</code></pre></div><p>And its content:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat config.json
+<span style="color:#f92672">{</span>
+  <span style="color:#e6db74">&#34;ip&#34;</span>: <span style="color:#e6db74">&#34;10.75.53.12&#34;</span>,
+  <span style="color:#e6db74">&#34;port&#34;</span>: 1000,
+  <span style="color:#e6db74">&#34;proto&#34;</span>: <span style="color:#e6db74">&#34;https&#34;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>Done like a terribly cooked steak!</p>
 
         </div>
-        
     </div>
 </article>
 
@@ -358,6 +269,8 @@ render.sh
         
         <a href="https://ashald.net/posts/2018/10/23/scale-consul/"
             class="prev-post  tag-hash-violet  tag-hash-post-violet  ">
+            
+            <div class="prev-next-image" style="background-image: url()"></div>
             
             <section class="prev-next-title">
                 <h5>Newer Post</h5>
@@ -368,6 +281,8 @@ render.sh
         
         <a href="https://ashald.net/posts/2018/08/12/python-cli/"
             class="next-post  tag-hash-green  tag-hash-post-green  tag-hash-large  ">
+            
+            <div class="prev-next-image" style="background-image: url()"></div>
             
             <section class="prev-next-title">
                 <h5>Older Post</h5>

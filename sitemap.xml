@@ -1,116 +1,68 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
     <loc>https://ashald.net/tags/travel/</loc>
     <lastmod>2019-04-09T06:00:00+08:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://ashald.net/</loc>
     <lastmod>2019-04-09T06:00:00+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://ashald.net/posts/2019/04/09/mutianyu-great-wall/</loc>
     <lastmod>2019-04-09T06:00:00+08:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://ashald.net/posts/</loc>
     <lastmod>2019-04-09T06:00:00+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://ashald.net/tags/</loc>
     <lastmod>2019-04-09T06:00:00+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://ashald.net/posts/2019/03/22/night-in-beijing/</loc>
     <lastmod>2019-03-22T19:40:00+08:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://ashald.net/tags/tech/</loc>
     <lastmod>2018-10-24T22:35:00-05:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://ashald.net/posts/2018/10/24/consul-acls-nginx/</loc>
     <lastmod>2018-10-24T22:35:00-05:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://ashald.net/posts/2018/10/23/scale-consul/</loc>
     <lastmod>2018-10-23T20:35:00-05:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://ashald.net/posts/2018/08/14/bash-templating/</loc>
     <lastmod>2018-08-14T13:07:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://ashald.net/posts/2018/08/12/python-cli/</loc>
     <lastmod>2018-08-12T16:42:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://ashald.net/tags/outreach/</loc>
     <lastmod>2018-08-10T23:33:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://ashald.net/posts/2018/08/10/graph-databases/</loc>
     <lastmod>2018-08-10T23:33:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://ashald.net/posts/2018/08/09/500-lines-or-less/</loc>
     <lastmod>2018-08-09T23:12:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://ashald.net/posts/2017/05/09/chernobyl/</loc>
     <lastmod>2017-05-09T20:03:44-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://ashald.net/posts/2017/04/25/dry-tortugas/</loc>
     <lastmod>2017-04-25T07:30:00-05:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://ashald.net/tags/art/</loc>
     <lastmod>2017-03-03T20:03:44-05:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://ashald.net/posts/2017/03/03/yayoi-kusama/</loc>
     <lastmod>2017-03-03T20:03:44-05:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://ashald.net/posts/2017/01/18/dupont-underground/</loc>
     <lastmod>2017-01-18T20:03:44-05:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://ashald.net/tags/coffee/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://ashald.net/categories/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://ashald.net/tags/sol/</loc>
   </url>
-  
 </urlset>

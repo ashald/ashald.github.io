@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Ashald</title>
@@ -6,11 +6,7 @@
     <description>Recent content in Posts on Ashald</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 09 Apr 2019 06:00:00 +0800</lastBuildDate>
-    
-	<atom:link href="https://ashald.net/posts/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 09 Apr 2019 06:00:00 +0800</lastBuildDate><atom:link href="https://ashald.net/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Mutianyu Great Wall</title>
       <link>https://ashald.net/posts/2019/04/09/mutianyu-great-wall/</link>
@@ -18,7 +14,7 @@
       
       <guid>https://ashald.net/posts/2019/04/09/mutianyu-great-wall/</guid>
       <description>TL;DR: We had an 18-hour-long stopover in Bejing early April and went to see Mutianyu section of the Great Wall of China. Weather was crazy. We had a fantastic experience.
- On our way back from Japan we had yet another stopover in Beijing as we flew with Air China. We were arriving late in the evening, but our flight out was in the early afternoon of the next day.</description>
+ On our way back from Japan, we had yet another stopover in Beijing as we flew with Air China. Arriving late in the evening, our flight out was in the early afternoon of the next day. We would be on a tight schedule, but we didn&amp;rsquo;t want to miss this opportunity.</description>
     </item>
     
     <item>
@@ -59,7 +55,7 @@ Over time, dealing with larger and larger setups, I learned some tricks that cam
       <guid>https://ashald.net/posts/2018/08/14/bash-templating/</guid>
       <description>While scripting in Bash, pretty often there is a need to generate a file or few. Some of the configuration options might not be known until the just-before application start or might need to be derived from the environment or context.
 Environment Variable Substitution One off One of the most common ways to generate a configuration file is by using heredoc literal:
-$ SERVER_IP=0.0.0.0 SERVER_PORT=12345 cat &amp;gt; config.json &amp;lt;&amp;lt; EOF &amp;gt; { &amp;gt; &amp;quot;ip&amp;quot;: &amp;quot;${SERVER_IP}&amp;quot;, &amp;gt; &amp;quot;port&amp;quot;: ${SERVER_PORT} &amp;gt; } &amp;gt; EOF  as simple as that, it&amp;rsquo;s hard to beat it in terms of convenience as you don&amp;rsquo;t need to worry about many things such as escaping quotes, worry about newlines and so on.</description>
+$ SERVER_IP=0.0.0.0 SERVER_PORT=12345 cat &amp;gt; config.json &amp;lt;&amp;lt; EOF &amp;gt; { &amp;gt; &amp;#34;ip&amp;#34;: &amp;#34;${SERVER_IP}&amp;#34;, &amp;gt; &amp;#34;port&amp;#34;: ${SERVER_PORT} &amp;gt; } &amp;gt; EOF as simple as that, it&amp;rsquo;s hard to beat it in terms of convenience as you don&amp;rsquo;t need to worry about many things such as escaping quotes, worry about newlines and so on.</description>
     </item>
     
     <item>
@@ -100,7 +96,7 @@ The idea behind the book is that even though modern software became very complex
       
       <guid>https://ashald.net/posts/2017/05/09/chernobyl/</guid>
       <description>About 10 years ago I had a chance to visit Chernobyl Nuclear Power Plant Zone of Alienation. In fact, nowadays anybody can legally visit it one way or another. It is relatively safe out there and most of the territory is unrestricted - for instance, there are people living in the town of Chernobyl. But certain parts of The Zone are off limits.
-Among places that are off limits is the ghost town of _Pripyat_ - in order to enter it you need a special authorization.</description>
+Among places that are off limits is the ghost town of Pripyat - in order to enter it you need a special authorization.</description>
     </item>
     
     <item>

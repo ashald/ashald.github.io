@@ -9,14 +9,13 @@
 
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i&amp;subset=latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" type="text/css" href='/css/normalize.css'>
   <link rel="stylesheet" type="text/css" href='/css/screen.css'>
 
   <link rel="stylesheet" type="text/css" href='/css/custom.css'>
   
   <link rel="stylesheet" type="text/css" href='/css/prism-tomorrow.min.css'>
 
-  <meta name="generator" content="Hugo 0.55.5" />
+  <meta name="generator" content="Hugo 0.88.1" />
 
   
   
@@ -27,23 +26,16 @@
 <meta property="og:description" content="Back in 2014 I&rsquo;ve been working for a startup then-called EnergyDeck on behalf of a web studio WebRiders. Even though I started working in tech since I graduated from high school and been working in the field for about 7 years by that time, mostly it was part time on rather smaller projects or internship after or instead of my college hours.
 So, here am I, just a year since I finished my master&rsquo;s degree, working on my first [rather] big[ger] project and enjoying brave new world of real world data modeling problems." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://ashald.net/posts/2018/08/10/graph-databases/" />
-<meta property="article:published_time" content="2018-08-10T23:33:00-04:00"/>
-<meta property="article:modified_time" content="2018-08-10T23:33:00-04:00"/>
+<meta property="og:url" content="https://ashald.net/posts/2018/08/10/graph-databases/" /><meta property="og:image" content="https://ashald.net/posts/2018/08/10/graph-databases/cover.jpg"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2018-08-10T23:33:00-04:00" />
+<meta property="article:modified_time" content="2018-08-10T23:33:00-04:00" />
 
 <meta itemprop="name" content="Modeling Trees: Graphs vs SQL-based MPTT">
 <meta itemprop="description" content="Back in 2014 I&rsquo;ve been working for a startup then-called EnergyDeck on behalf of a web studio WebRiders. Even though I started working in tech since I graduated from high school and been working in the field for about 7 years by that time, mostly it was part time on rather smaller projects or internship after or instead of my college hours.
-So, here am I, just a year since I finished my master&rsquo;s degree, working on my first [rather] big[ger] project and enjoying brave new world of real world data modeling problems.">
-
-
-<meta itemprop="datePublished" content="2018-08-10T23:33:00-04:00" />
+So, here am I, just a year since I finished my master&rsquo;s degree, working on my first [rather] big[ger] project and enjoying brave new world of real world data modeling problems."><meta itemprop="datePublished" content="2018-08-10T23:33:00-04:00" />
 <meta itemprop="dateModified" content="2018-08-10T23:33:00-04:00" />
-<meta itemprop="wordCount" content="745">
-
-
-
-<meta itemprop="keywords" content="tech,outreach," />
-<meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="wordCount" content="741"><meta itemprop="image" content="https://ashald.net/posts/2018/08/10/graph-databases/cover.jpg">
+<meta itemprop="keywords" content="tech,outreach," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://ashald.net/posts/2018/08/10/graph-databases/cover.jpg"/>
 <meta name="twitter:title" content="Modeling Trees: Graphs vs SQL-based MPTT"/>
 <meta name="twitter:description" content="Back in 2014 I&rsquo;ve been working for a startup then-called EnergyDeck on behalf of a web studio WebRiders. Even though I started working in tech since I graduated from high school and been working in the field for about 7 years by that time, mostly it was part time on rather smaller projects or internship after or instead of my college hours.
@@ -130,61 +122,52 @@ post-template
             
             
             <p>Back in 2014 I&rsquo;ve been working for a startup then-called <a href="https://www.energydeck.com">EnergyDeck</a> on behalf of a web studio <a href="http://webriders.com.ua/">WebRiders</a>. Even though I started working in tech since I graduated from high school and been working in the field for about 7 years by that time, mostly it was part time on rather smaller projects or internship after or instead of my college hours.</p>
-
 <p>So, here am I, just a year since I finished my master&rsquo;s degree, working on my first [rather] big[ger] project and enjoying brave new world of real world data modeling problems.</p>
-
 <p>At that particular time, I was working on data processing and analytics over dynamic sets of data series. What is that?</p>
-
 <ul>
 <li>Imagine an organization having few offices
-
 <ul>
-<li>Each office have few buildings</li>
+<li>Each office have few buildings
+<ul>
 <li>Each building having few floors
-
 <ul>
-<li>Each floor having few sections</li>
+<li>Each floor having few sections
+<ul>
 <li>Each section having few rooms
-
 <ul>
 <li>Each rooms having few meters (electricity, temperature, water etc)</li>
-</ul></li>
-</ul></li>
-</ul></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>And that&rsquo;s a simplified model. Gosh, what a complicated world we are living in?</p>
+<p>Then we started adding tenant-landlord concepts, role-based access, access sharing and so on and so on. The only thing I had in mind at that time was a tree. Or a tree of trees. Or a forest. I did not even know. The only thing I was sure about is that it was a <a href="https://en.wikipedia.org/wiki/Tree_(data_structure)"><code>tree</code></a>, not a <a href="https://en.wikipedia.org/wiki/Graph_(abstract_data_type)"><code>graph</code></a>.</p>
+<p>Oh, right, and did I mention SQL? Right! Of course our data were in a SQL database (although in a <a href="https://www.postgresql.org/">good one</a>). I can keep going on with details here for hours (curios? invite me for an interview!) but it&rsquo;s obvious that at some point we started running into performance issues with the simplistic data model we had.</p>
+<p>Being a &ldquo;lead developer&rdquo; on a project by that time I was looking into potential solutions that were running down to just a couple of items: <code>MPTT</code> or a <code>graph database</code>.</p>
+<p><code>MPTT</code> stands for <a href="https://en.wikipedia.org/wiki/Nested_set_model"><code>Modified Preorder Tree Traversal</code></a> - a technique for storing hierarchical data in a database that aims for efficient retrievals sacrificing performing of insertions. To the best of my knowledge it&rsquo;s a widely used approach for dealing with hierarchical data in SQL databases and <a href="https://github.com/django-mptt/django-mptt">django-mptt</a> (which I actually have used at the time) has few very good references for further reading.</p>
+<p><a href="https://en.wikipedia.org/wiki/Graph_database"><code>Graph database</code></a> is a sort of database that allows you to model your data as, well, graphs with nodes (vertexes/vertices) and edges and run semantic queries over them. While they became way more popular recently, they seemed to be a novel bleeding edge technology to me at the time.</p>
+<p>Torn between those options I ended up writing a proof of concept using both approaches and running a performance comparison between them. Around the same time I was invited to talk at a small local meetup and prepared a short presentation about my findings.</p>
+<!-- raw HTML omitted -->
+<p>Unfortunately, the proof of concept itself and all the details about the performance test I did were lost both from my memories and from my backups. I&rsquo;d not bet on the results I obtained at the time but would take that into account may I face similar problem in the future.</p>
+<p>Looking back at the experiment I ran, it seems to be a pretty controversial in some sense. The <code>MPTT</code> implementation was based on <a href="https://www.djangoproject.com/">Django</a> ORM and therefore suffered from obvious performance issues [as compared to raw SQL]. On the other hand, the <code>graph</code> version was relying on <a href="http://groovy-lang.org/"><code>Groovy</code></a> <a href="https://tinkerpop.apache.org/gremlin.html">DSL queries</a> that were transmitted into <a href="http://titan.thinkaurelius.com/">Titan</a> (now known as <a href="http://janusgraph.org/">JanusGraph</a>) graph engine (running on top of Cassandra storage engine) via <a href="http://tinkerpop.apache.org/">Apache TinkerPop</a> facade.</p>
+<p>In other words, the results I obtained are less likely represent the best case performance. Instead they showed us &ldquo;gross&rdquo; performance we would get with given implementations that we would use may we move forward with any of those options.</p>
+<p>As a result, the decision was made to give a try to the solution based in <code>graph database</code> and that&rsquo;s what I was working on until I left the team to move on with my next job opportunity at <a href="https://en.wikipedia.org/wiki/National_Center_for_Biotechnology_Information">National Center for Biotechnology Information</a>.</p>
+<p>One of the key takeaways for me was invaluable knowledge and experience I gained experimenting with graph databases. If I were to summarize most valuable references based on that I&rsquo;d suggest checking out:</p>
+<ul>
+<li><a href="http://tinkerpop.apache.org/">Apache TinkerPop</a> - a facade over graph database</li>
+<li><a href="http://janusgraph.org/">JanusGraph</a> - <code>TinkerPop</code> compatible graph engine with multiple storage backend options</li>
+<li><a href="https://neo4j.com/">Neo4J</a> - another popular &ldquo;all-in-one&rdquo; graph database</li>
+<li><a href="https://orientdb.com/">OrientDB</a> - a &ldquo;multi-model database&rdquo; that supports graph semantics</li>
 </ul>
 
-<p>And that&rsquo;s a simplified model. Gosh, what a complicated world we are living in?</p>
-
-<p>Then we started adding tenant-landlord concepts, role-based access, access sharing and so on and so on. The only thing I had in mind at that time was a tree. Or a tree of trees. Or a forest. I did not even know. The only thing I was sure about is that it was a <a href="https://en.wikipedia.org/wiki/Tree_(data_structure)"><code>tree</code></a>, not a <a href="https://en.wikipedia.org/wiki/Graph_(abstract_data_type)"><code>graph</code></a>.</p>
-
-<p>Oh, right, and did I mention SQL? Right! Of course our data were in a SQL database (although in a <a href="https://www.postgresql.org/">good one</a>). I can keep going on with details here for hours (curios? invite me for an interview!) but it&rsquo;s obvious that at some point we started running into performance issues with the simplistic data model we had.</p>
-
-<p>Being a &ldquo;lead developer&rdquo; on a project by that time I was looking into potential solutions that were running down to just a couple of items: <code>MPTT</code> or a <code>graph database</code>.</p>
-
-<p><code>MPTT</code> stands for <a href="https://en.wikipedia.org/wiki/Nested_set_model"><code>Modified Preorder Tree Traversal</code></a> - a technique for storing hierarchical data in a database that aims for efficient retrievals sacrificing performing of insertions. To the best of my knowledge it&rsquo;s a widely used approach for dealing with hierarchical data in SQL databases and <a href="https://github.com/django-mptt/django-mptt">django-mptt</a> (which I actually have used at the time) has few very good references for further reading.</p>
-
-<p><a href="https://en.wikipedia.org/wiki/Graph_database"><code>Graph database</code></a> is a sort of database that allows you to model your data as, well, graphs with nodes (vertexes/vertices) and edges and run semantic queries over them. While they became way more popular recently, they seemed to be a novel bleeding edge technology to me at the time.</p>
-
-<p>Torn between those options I ended up writing a proof of concept using both approaches and running a performance comparison between them. Around the same time I was invited to talk at a small local meetup and prepared a short presentation about my findings.</p>
-
-<script async class="speakerdeck-embed" data-id="012a781c078141d7bfca8716b269e3d6" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script>
-
-<p>Unfortunately, the proof of concept itself and all the details about the performance test I did were lost both from my memories and from my backups. I&rsquo;d not bet on the results I obtained at the time but would take that into account may I face similar problem in the future.</p>
-
-<p>Looking back at the experiment I ran, it seems to be a pretty controversial in some sense. The <code>MPTT</code> implementation was based on <a href="https://www.djangoproject.com/">Django</a> ORM and therefore suffered from obvious performance issues [as compared to raw SQL]. On the other hand, the <code>graph</code> version was relying on <a href="http://groovy-lang.org/"><code>Groovy</code></a> <a href="https://tinkerpop.apache.org/gremlin.html">DSL queries</a> that were transmitted into <a href="http://titan.thinkaurelius.com/">Titan</a> (now known as <a href="http://janusgraph.org/">JanusGraph</a>) graph engine (running on top of Cassandra storage engine) via <a href="http://tinkerpop.apache.org/">Apache TinkerPop</a> facade.</p>
-
-<p>In other words, the results I obtained are less likely represent the best case performance. Instead they showed us &ldquo;gross&rdquo; performance we would get with given implementations that we would use may we move forward with any of those options.</p>
-
-<p>As a result, the decision was made to give a try to the solution based in <code>graph database</code> and that&rsquo;s what I was working on until I left the team to move on with my next job opportunity at <a href="https://en.wikipedia.org/wiki/National_Center_for_Biotechnology_Information">National Center for Biotechnology Information</a>.</p>
-
-<p>One of the key takeaways for me was invaluable knowledge and experience I gained experimenting with graph databases. If I were to summarize most valuable references based on that I&rsquo;d suggest checking out:
-* <a href="http://tinkerpop.apache.org/">Apache TinkerPop</a> - a facade over graph database
-* <a href="http://janusgraph.org/">JanusGraph</a> - <code>TinkerPop</code> compatible graph engine with multiple storage backend options
-* <a href="https://neo4j.com/">Neo4J</a> - another popular &ldquo;all-in-one&rdquo; graph database
-* <a href="https://orientdb.com/">OrientDB</a> - a &ldquo;multi-model database&rdquo; that supports graph semantics</p>
-
         </div>
-        
     </div>
 </article>
 
@@ -193,6 +176,8 @@ post-template
         
         <a href="https://ashald.net/posts/2018/08/12/python-cli/"
             class="prev-post  tag-hash-green  tag-hash-post-green  tag-hash-large  ">
+            
+            <div class="prev-next-image" style="background-image: url()"></div>
             
             <section class="prev-next-title">
                 <h5>Newer Post</h5>

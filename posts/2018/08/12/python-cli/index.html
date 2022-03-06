@@ -9,14 +9,13 @@
 
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i&amp;subset=latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" type="text/css" href='/css/normalize.css'>
   <link rel="stylesheet" type="text/css" href='/css/screen.css'>
 
   <link rel="stylesheet" type="text/css" href='/css/custom.css'>
   
   <link rel="stylesheet" type="text/css" href='/css/prism-tomorrow.min.css'>
 
-  <meta name="generator" content="Hugo 0.55.5" />
+  <meta name="generator" content="Hugo 0.88.1" />
 
   
   
@@ -28,24 +27,17 @@
 When writing a command-line application in Python, parsing arguments passed to it is usually the problem #1.
 If you&rsquo;re dealing with a program that has its own dependencies or there is an environment (hope it&rsquo;s virtual rather than system-wide) you don&rsquo;t mind installing few packages to - you probably should consider using excellent click library." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://ashald.net/posts/2018/08/12/python-cli/" />
-<meta property="article:published_time" content="2018-08-12T16:42:00-04:00"/>
-<meta property="article:modified_time" content="2018-08-12T16:42:00-04:00"/>
+<meta property="og:url" content="https://ashald.net/posts/2018/08/12/python-cli/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2018-08-12T16:42:00-04:00" />
+<meta property="article:modified_time" content="2018-08-12T16:42:00-04:00" />
 
 <meta itemprop="name" content="Simplistic Python Command-Line Applications">
 <meta itemprop="description" content="Intro Python is becoming the world&rsquo;s most popular coding language, and there are so many uses for it. One of the most popular ones, probably, would be scripting.
 When writing a command-line application in Python, parsing arguments passed to it is usually the problem #1.
-If you&rsquo;re dealing with a program that has its own dependencies or there is an environment (hope it&rsquo;s virtual rather than system-wide) you don&rsquo;t mind installing few packages to - you probably should consider using excellent click library.">
-
-
-<meta itemprop="datePublished" content="2018-08-12T16:42:00-04:00" />
+If you&rsquo;re dealing with a program that has its own dependencies or there is an environment (hope it&rsquo;s virtual rather than system-wide) you don&rsquo;t mind installing few packages to - you probably should consider using excellent click library."><meta itemprop="datePublished" content="2018-08-12T16:42:00-04:00" />
 <meta itemprop="dateModified" content="2018-08-12T16:42:00-04:00" />
-<meta itemprop="wordCount" content="1528">
-
-
-
-<meta itemprop="keywords" content="tech," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="wordCount" content="1525">
+<meta itemprop="keywords" content="tech," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Simplistic Python Command-Line Applications"/>
 <meta name="twitter:description" content="Intro Python is becoming the world&rsquo;s most popular coding language, and there are so many uses for it. One of the most popular ones, probably, would be scripting.
 When writing a command-line application in Python, parsing arguments passed to it is usually the problem #1.
@@ -125,192 +117,137 @@ post-template tag-hash-green tag-hash-post-green tag-hash-large
         <div class='post-wrap no-image'>
             
             
-            
-
-<h1 id="intro">Intro</h1>
-
+            <h1 id="intro">Intro</h1>
 <p><a href="https://www.economist.com/graphic-detail/2018/07/26/python-is-becoming-the-worlds-most-popular-coding-language">Python is becoming the world&rsquo;s most popular coding language</a>, and there are so many uses for it. One of the most popular ones, probably, would be scripting.</p>
-
 <p>When writing a command-line application in Python, parsing arguments passed to it is usually the problem #1.</p>
-
 <p>If you&rsquo;re dealing with a program that has its own dependencies or there is an environment (hope it&rsquo;s virtual rather than system-wide) you don&rsquo;t mind installing few packages to - you probably should consider using excellent <a href="https://www.palletsprojects.com/p/click/"><code>click</code></a> library.</p>
-
 <p>If that doesn&rsquo;t hold yet you&rsquo;re going to share your application with others - please consider &ldquo;investing&rdquo; into proper command-line processing with <a href="https://docs.python.org/3.7/howto/argparse.html"><code>argparse</code></a>. I find its API to be a little bit tedious, but it&rsquo;s the best you can do while relying solely on the standard library.</p>
-
 <p>If none of the above holds - we&rsquo;re usually down to some simplistic and minimalistic ad-hoc solutions, and as creative their authors are as bizarre, those solutions are.</p>
-
 <p>I am guilty of the latter and did that many times. So many times that I came up with a &ldquo;pattern&rdquo; that has some convenience &ldquo;features&rdquo; that I find handy. So let&rsquo;s get straight to the code. Here it is:</p>
-
-<pre><code class="language-python">import sys
-
-
-def main(_stdin, _stdout, _stderr, self, arg_1, optional=None, *rest):
-    raise NotImplementedError
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> sys
 
 
-if __name__ == '__main__':
-    sys.exit(main(sys.stdin, sys.stdout, sys.stderr, *sys.argv))
-</code></pre>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>(_stdin, _stdout, _stderr, self, arg_1, optional<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>, <span style="color:#f92672">*</span>rest):
+    <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">NotImplementedError</span>
 
-<p>And that&rsquo;s it.</p>
 
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+    sys<span style="color:#f92672">.</span>exit(main(sys<span style="color:#f92672">.</span>stdin, sys<span style="color:#f92672">.</span>stdout, sys<span style="color:#f92672">.</span>stderr, <span style="color:#f92672">*</span>sys<span style="color:#f92672">.</span>argv))
+</code></pre></div><p>And that&rsquo;s it.</p>
 <p>If you&rsquo;re curious about detailed explanations about the code above - keep reading. Otherwise, you can <a href="#example">jump to the end to see a complete usage example</a>.</p>
-
 <h1 id="piecemeal">Piecemeal</h1>
-
 <p>First of all, executing anything upon module import in Python is a bad idea and guaranteed to lead to frustrating errors. Because of that, it&rsquo;s generally recommended to always put the code in a function which is going to be <a href="https://docs.python.org/3/library/__main__.html">executed only when it&rsquo;s intended to</a>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>():
+    <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">NotImplementedError</span>
 
-<pre><code class="language-python">def main():
-    raise NotImplementedError
 
-
-if __name__ == '__main__':
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
     main()
-</code></pre>
-
-<p>Also, when writing Python, there are no excuses not to follow <a href="https://www.python.org/dev/peps/pep-0008/">PEP8</a>. That&rsquo;s why there are 2 blank lines between <code>main()</code> function and <code>if</code> statement as well as between it and <code>import sys</code> statement at the top of the file.</p>
-
-<pre><code class="language-python">import sys
+</code></pre></div><p>Also, when writing Python, there are no excuses not to follow <a href="https://www.python.org/dev/peps/pep-0008/">PEP8</a>. That&rsquo;s why there are 2 blank lines between <code>main()</code> function and <code>if</code> statement as well as between it and <code>import sys</code> statement at the top of the file.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> sys
 
 
-def main():
-    raise NotImplementedError
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>():
+    <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">NotImplementedError</span>
 
 
-if __name__ == '__main__':
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
     main()
-</code></pre>
-
-<p>Yes, it&rsquo;s <em>PEP8</em>, that says that imports should <a href="https://www.python.org/dev/peps/pep-0008/#imports">ordered, grouped and put at the top of the file</a>.</p>
-
+</code></pre></div><p>Yes, it&rsquo;s <em>PEP8</em>, that says that imports should <a href="https://www.python.org/dev/peps/pep-0008/#imports">ordered, grouped and put at the top of the file</a>.</p>
 <p>Why do we <code>import sys</code>? Because that&rsquo;s how we access our command-line arguments as well as standard streams such as <code>stdin</code>, <code>stdout</code> and <code>stderr</code> in Python.</p>
-
 <p>Given the <code>sys</code> module, we can access <code>sys.argv</code> which is a <code>list</code> that holds all the arguments. However, instead of accessing it directly whenever we need a value we&rsquo;re going to do it in once and in one place - where we call the <code>main</code> function:</p>
-
-<pre><code class="language-python">import sys
-
-
-def main(self, arg_1, optional='foo', *rest):
-    raise NotImplementedError
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> sys
 
 
-if __name__ == '__main__':
-    main(*sys.argv)
-</code></pre>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>(self, arg_1, optional<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;foo&#39;</span>, <span style="color:#f92672">*</span>rest):
+    <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">NotImplementedError</span>
 
-<p>Not only we make our code better by dealing with arguments just in one place - but we also leverage <a href="https://docs.python.org/3/tutorial/controlflow.html#unpacking-argument-lists">Python&rsquo;s ability to unpack argument lists</a> to map arguments to variables. And because we do that, we now can leverage <a href="https://docs.python.org/3/tutorial/controlflow.html#default-argument-values">default argument values</a> and <a href="https://docs.python.org/3/tutorial/controlflow.html#arbitrary-argument-lists">arbitrary argument lists</a>. Just let&rsquo;s not forget that 1st item in the <code>sys.argv</code> is the path to the script that is being executed (the script we&rsquo;re writing right now) the way how it was invoked (for instance, it can be something like <code>~/script.py</code>). We call it <code>self</code> in this example but if it&rsquo;s not needed we even can use <code>_</code> instead of <code>self</code> in <code>main</code> function definition which is a conventional placeholder for values that are passed but not used in Python.</p>
 
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+    main(<span style="color:#f92672">*</span>sys<span style="color:#f92672">.</span>argv)
+</code></pre></div><p>Not only we make our code better by dealing with arguments just in one place - but we also leverage <a href="https://docs.python.org/3/tutorial/controlflow.html#unpacking-argument-lists">Python&rsquo;s ability to unpack argument lists</a> to map arguments to variables. And because we do that, we now can leverage <a href="https://docs.python.org/3/tutorial/controlflow.html#default-argument-values">default argument values</a> and <a href="https://docs.python.org/3/tutorial/controlflow.html#arbitrary-argument-lists">arbitrary argument lists</a>. Just let&rsquo;s not forget that 1st item in the <code>sys.argv</code> is the path to the script that is being executed (the script we&rsquo;re writing right now) the way how it was invoked (for instance, it can be something like <code>~/script.py</code>). We call it <code>self</code> in this example but if it&rsquo;s not needed we even can use <code>_</code> instead of <code>self</code> in <code>main</code> function definition which is a conventional placeholder for values that are passed but not used in Python.</p>
 <p>Now, what does it look like? Yes, right - that exactly looks like <a href="https://en.wikipedia.org/wiki/Dependency_stdinjection"><code>dependency injection</code></a>. We&rsquo;re not injecting much [yet] - just the arguments themselves, but may we commit/agree to not access <code>sys.argv</code> ever again, we have only one way to get the arguments our program was invoked with. It makes it really easy to trace the flow of parameters or inject particular values to induce specific behaviors for testing purposes.</p>
-
 <p>But let&rsquo;s take that even further! When writing scripts, dealing with data streams (<code>stdin</code>, <code>stdout</code>, <code>stderr</code>) may be even more common than dealing with command-line arguments. So let&rsquo;s commit to the same principle as we did for arguments and inject them right away when we call the <code>main</code> function:</p>
-
-<pre><code class="language-python">import sys
-
-
-def main(_stdin, _stdout, _stderr, self, arg_1, optional='foo', *rest):
-    raise NotImplementedError
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> sys
 
 
-if __name__ == '__main__':
-    main(sys.stdin, sys.stdout, sys.stderr, *sys.argv)
-</code></pre>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>(_stdin, _stdout, _stderr, self, arg_1, optional<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;foo&#39;</span>, <span style="color:#f92672">*</span>rest):
+    <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">NotImplementedError</span>
 
-<p>In this example, we have stream parameter names prefixed with an underscore (<code>_</code>) to make them visually distinct from argument parameters, but that&rsquo;s more of a personal style.</p>
 
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+    main(sys<span style="color:#f92672">.</span>stdin, sys<span style="color:#f92672">.</span>stdout, sys<span style="color:#f92672">.</span>stderr, <span style="color:#f92672">*</span>sys<span style="color:#f92672">.</span>argv)
+</code></pre></div><p>In this example, we have stream parameter names prefixed with an underscore (<code>_</code>) to make them visually distinct from argument parameters, but that&rsquo;s more of a personal style.</p>
 <p>The idea here is that instead of access <code>sys.stdin</code> and other streams directly whenever we need them, we going not to do that and use <code>_stdin</code> instead. May we split our code into few functions we would need to pass stream parameters along which may seem tedious, but on the other hand, it makes our code more explicit and testable. Given that code is read [by humans] way more often than written, this relatively cheap &ldquo;investment&rdquo; cannot be overvalued when someone would be plowing through our script trying to figure out why it doesn&rsquo;t work as one has expected.</p>
-
 <p>Last but not least, exit codes are often under-appreciated. Not only they can be used to distinguish between successful and failed executions, but they also can highlight some common problems or help during debugging. All of that holds only when sensible exit codes are returned though. And as usual, to promote that we need to make it easier to do. Given that there is not much use for <code>return</code> values in the high-level functions such as <code>main</code> we can conveniently use their return values as exit code. The neat trick here is that in Python there is always a return value from every function call, it&rsquo;s just when it&rsquo;s not set it is <code>None</code>. If we look at <code>sys.exit</code>&rsquo;s docstring:</p>
-
-<pre><code class="language-python">&gt;&gt;&gt; print(sys.exit.__doc__)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> print(sys<span style="color:#f92672">.</span>exit<span style="color:#f92672">.</span>__doc__)
 exit([status])
 
-Exit the interpreter by raising SystemExit(status).
-If the status is omitted or None, it defaults to zero (i.e., success).
-If the status is an integer, it will be used as the system exit status.
-If it is another kind of object, it will be printed and the system
-exit status will be one (i.e., failure).
-</code></pre>
-
-<p>we see that <code>None</code> is treated as <code>0</code> which means success. In other words, we need to return something only when there is a failure.</p>
-
+Exit the interpreter by raising <span style="color:#a6e22e">SystemExit</span>(status)<span style="color:#f92672">.</span>
+If the status <span style="color:#f92672">is</span> omitted <span style="color:#f92672">or</span> <span style="color:#66d9ef">None</span>, it defaults to zero (i<span style="color:#f92672">.</span>e<span style="color:#f92672">.</span>, success)<span style="color:#f92672">.</span>
+If the status <span style="color:#f92672">is</span> an integer, it will be used <span style="color:#66d9ef">as</span> the system exit status<span style="color:#f92672">.</span>
+If it <span style="color:#f92672">is</span> another kind of object, it will be printed <span style="color:#f92672">and</span> the system
+exit status will be one (i<span style="color:#f92672">.</span>e<span style="color:#f92672">.</span>, failure)<span style="color:#f92672">.</span>
+</code></pre></div><p>we see that <code>None</code> is treated as <code>0</code> which means success. In other words, we need to return something only when there is a failure.</p>
 <p>It must be noted that everything we talked above is not foolproof and works only when the conditions above are met. May somebody access <code>sys.argv</code> or use <code>print</code> without specifying a stream via <code>file</code> parameter the code will become absolutely not testable and even harder to reason about.</p>
-
 <p>Putting all of this together, we can proceed with a practical usage example.</p>
-
 <h1 id="example">Example</h1>
-
 <p>Let&rsquo;s assume we need to write a small script that would accept two arguments - <code>&lt;search&gt;</code> and <code>&lt;replace&gt;</code> (optional, defaults to an empty string). Given those arguments, it would read standard input, search for occurrences of <code>&lt;search&gt;</code>, replace them with <code>&lt;replace&gt;</code> and write the result to standard output. If there are not enough or too many arguments are given we should exit with status code <code>1</code> and print usage example.</p>
-
 <p>In reality, nobody would ever need such a script since there is <code>tr</code> that does all of that but 10 times better. However, it doesn&rsquo;t matter as we just need an idea of a script that would involve all the standard streams along with some command-line arguments processing.</p>
-
 <p>Here is how it can look like:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#!/usr/bin/env python3.6</span>
+<span style="color:#f92672">import</span> sys
 
-<pre><code class="language-python">#!/usr/bin/env python3.6
-import sys
 
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">usage</span>(self, _stderr):
+    print(<span style="color:#e6db74">&#34;Usage:&#34;</span>, file<span style="color:#f92672">=</span>_stderr)
+    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">{</span>self<span style="color:#e6db74">}</span><span style="color:#e6db74"> &lt;search&gt; [&lt;replace&gt;]&#34;</span>, file<span style="color:#f92672">=</span>_stderr)
+    print(file<span style="color:#f92672">=</span>_stderr)
+    print(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">Reads stdin and writes to stdout.&#34;</span>, file<span style="color:#f92672">=</span>_stderr)
+    print(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">Replaces &lt;search&gt; with &lt;replace&gt;.&#34;</span>, file<span style="color:#f92672">=</span>_stderr)
+    print(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">&lt;replace&gt; defaults to an empty string.&#34;</span>, file<span style="color:#f92672">=</span>_stderr)
+    print(file<span style="color:#f92672">=</span>_stderr)
+    print(<span style="color:#e6db74">&#34;Example:&#34;</span>, file<span style="color:#f92672">=</span>_stderr)
+    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">echo foo bar baz | </span><span style="color:#e6db74">{</span>self<span style="color:#e6db74">}</span><span style="color:#e6db74"> bar&#34;</span>, file<span style="color:#f92672">=</span>_stderr)
+    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">echo foo bar baz | </span><span style="color:#e6db74">{</span>self<span style="color:#e6db74">}</span><span style="color:#e6db74"> bar foo&#34;</span>, file<span style="color:#f92672">=</span>_stderr)
+    print(file<span style="color:#f92672">=</span>_stderr)
 
-def usage(self, _stderr):
-    print(&quot;Usage:&quot;, file=_stderr)
-    print(f&quot;\t{self} &lt;search&gt; [&lt;replace&gt;]&quot;, file=_stderr)
-    print(file=_stderr)
-    print(&quot;\tReads stdin and writes to stdout.&quot;, file=_stderr)
-    print(&quot;\tReplaces &lt;search&gt; with &lt;replace&gt;.&quot;, file=_stderr)
-    print(&quot;\t&lt;replace&gt; defaults to an empty string.&quot;, file=_stderr)
-    print(file=_stderr)
-    print(&quot;Example:&quot;, file=_stderr)
-    print(f&quot;\techo foo bar baz | {self} bar&quot;, file=_stderr)
-    print(f&quot;\techo foo bar baz | {self} bar foo&quot;, file=_stderr)
-    print(file=_stderr)
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
 
-    return 1
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">search_and_replace</span>(_stdin, _stdout, search, replace):
+    <span style="color:#66d9ef">for</span> line <span style="color:#f92672">in</span> _stdin:
+        _stdout<span style="color:#f92672">.</span>write(line<span style="color:#f92672">.</span>replace(search, replace))
 
-def search_and_replace(_stdin, _stdout, search, replace):
-    for line in _stdin:
-        _stdout.write(line.replace(search, replace))
-
-def main(_stdin, _stdout, _stderr, self, search=None, replace='', *rest):
-    return (
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>(_stdin, _stdout, _stderr, self, search<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>, replace<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span>, <span style="color:#f92672">*</span>rest):
+    <span style="color:#66d9ef">return</span> (
         search_and_replace(_stdin, _stdout, search, replace)
-            if search and not rest
-                else usage(self, _stderr)
+            <span style="color:#66d9ef">if</span> search <span style="color:#f92672">and</span> <span style="color:#f92672">not</span> rest
+                <span style="color:#66d9ef">else</span> usage(self, _stderr)
     )
 
 
-if __name__ == '__main__':
-    sys.exit(main(sys.stdin, sys.stdout, sys.stderr, *sys.argv))
-</code></pre>
-
-<p>Python 3.6 is assumed here (and denoted in the <a href="https://en.wikipedia.org/wiki/Shebang_(Unix)">shebang</a>) so that we can use amazing <a href="https://www.python.org/dev/peps/pep-0498/">PEP 498</a> for literal string interpolation.</p>
-
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+    sys<span style="color:#f92672">.</span>exit(main(sys<span style="color:#f92672">.</span>stdin, sys<span style="color:#f92672">.</span>stdout, sys<span style="color:#f92672">.</span>stderr, <span style="color:#f92672">*</span>sys<span style="color:#f92672">.</span>argv))
+</code></pre></div><p>Python 3.6 is assumed here (and denoted in the <a href="https://en.wikipedia.org/wiki/Shebang_(Unix)">shebang</a>) so that we can use amazing <a href="https://www.python.org/dev/peps/pep-0498/">PEP 498</a> for literal string interpolation.</p>
 <p>Another detail that may require some explanations is how we a one-line <em>expression</em></p>
-
-<pre><code class="language-python">X if condition else Y
-</code></pre>
-
-<p>became a multi-line one</p>
-
-<pre><code class="language-python">(
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">X <span style="color:#66d9ef">if</span> condition <span style="color:#66d9ef">else</span> Y
+</code></pre></div><p>became a multi-line one</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">(
     X
-        if condition
-            else Y
+        <span style="color:#66d9ef">if</span> condition
+            <span style="color:#66d9ef">else</span> Y
 )
-</code></pre>
-
-<p>because of the author&rsquo;s personal preference to avoid the addition of intermediary variables or multiple return <em>statements</em> with a conventional multi-line <code>if-else</code> <em>statement</em>. There is no magic to it as round braces <code>()</code> can be used as a safer alternative to backslashes <code>\</code> when defining multi-line expressions, e.g., long strings:</p>
-
-<pre><code class="language-python">&gt;&gt;&gt; (
-...     &quot;a&quot;
-...     &quot;b&quot;
-...     &quot;c&quot;
-... )
-'abc'
-</code></pre>
-
-<p>Now we can give it a try and see how it fails:</p>
-
-<pre><code class="language-bash">$ ./tr.py
+</code></pre></div><p>because of the author&rsquo;s personal preference to avoid the addition of intermediary variables or multiple return <em>statements</em> with a conventional multi-line <code>if-else</code> <em>statement</em>. There is no magic to it as round braces <code>()</code> can be used as a safer alternative to backslashes <code>\</code> when defining multi-line expressions, e.g., long strings:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> (
+<span style="color:#f92672">...</span>     <span style="color:#e6db74">&#34;a&#34;</span>
+<span style="color:#f92672">...</span>     <span style="color:#e6db74">&#34;b&#34;</span>
+<span style="color:#f92672">...</span>     <span style="color:#e6db74">&#34;c&#34;</span>
+<span style="color:#f92672">...</span> )
+<span style="color:#e6db74">&#39;abc&#39;</span>
+</code></pre></div><p>Now we can give it a try and see how it fails:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ./tr.py
 Usage:
-    ./tr.py &lt;search&gt; [&lt;replace&gt;]
+    ./tr.py &lt;search&gt; <span style="color:#f92672">[</span>&lt;replace&gt;<span style="color:#f92672">]</span>
 
     Reads stdin and writes to stdout.
     Replaces &lt;search&gt; with &lt;replace&gt;.
@@ -319,22 +256,14 @@ Usage:
 Example:
     echo foo bar baz | ./tr.py bar
     echo foo bar baz | ./tr.py bar foo
-</code></pre>
-
-<p>and how it works:</p>
-
-<pre><code class="language-bash">$ echo foo bar baz | ./tr.py bar
+</code></pre></div><p>and how it works:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ echo foo bar baz | ./tr.py bar
 foo  baz
-</code></pre>
-
-<pre><code class="language-bash">$ echo foo bar baz | ./tr.py bar foo
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ echo foo bar baz | ./tr.py bar foo
 foo foo baz
-</code></pre>
-
-<p>Voilà!</p>
+</code></pre></div><p>Voilà!</p>
 
         </div>
-        
     </div>
 </article>
 
@@ -343,6 +272,8 @@ foo foo baz
         
         <a href="https://ashald.net/posts/2018/08/14/bash-templating/"
             class="prev-post  tag-hash-orange  tag-hash-post-orange  ">
+            
+            <div class="prev-next-image" style="background-image: url()"></div>
             
             <section class="prev-next-title">
                 <h5>Newer Post</h5>

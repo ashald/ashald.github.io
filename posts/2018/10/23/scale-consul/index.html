@@ -9,14 +9,13 @@
 
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i&amp;subset=latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" type="text/css" href='/css/normalize.css'>
   <link rel="stylesheet" type="text/css" href='/css/screen.css'>
 
   <link rel="stylesheet" type="text/css" href='/css/custom.css'>
   
   <link rel="stylesheet" type="text/css" href='/css/prism-tomorrow.min.css'>
 
-  <meta name="generator" content="Hugo 0.55.5" />
+  <meta name="generator" content="Hugo 0.88.1" />
 
   
   
@@ -27,23 +26,16 @@
 <meta property="og:description" content="Scale I&rsquo;ve been using Consul since one of the first releases back in 2014 and have set it up multiple times in various environments - from standalone nodes for convenience purposes to multi-datacenter federated clusters partitioned over WAN and LAN segments.
 Over time, dealing with larger and larger setups, I learned some tricks that came handy as scale grew, especially once node and service counters start running in hundreds or thousands." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://ashald.net/posts/2018/10/23/scale-consul/" />
-<meta property="article:published_time" content="2018-10-23T20:35:00-05:00"/>
-<meta property="article:modified_time" content="2018-10-23T20:35:00-05:00"/>
+<meta property="og:url" content="https://ashald.net/posts/2018/10/23/scale-consul/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2018-10-23T20:35:00-05:00" />
+<meta property="article:modified_time" content="2018-10-23T20:35:00-05:00" />
 
 <meta itemprop="name" content="Using Consul at Some Scale">
 <meta itemprop="description" content="Scale I&rsquo;ve been using Consul since one of the first releases back in 2014 and have set it up multiple times in various environments - from standalone nodes for convenience purposes to multi-datacenter federated clusters partitioned over WAN and LAN segments.
-Over time, dealing with larger and larger setups, I learned some tricks that came handy as scale grew, especially once node and service counters start running in hundreds or thousands.">
-
-
-<meta itemprop="datePublished" content="2018-10-23T20:35:00-05:00" />
+Over time, dealing with larger and larger setups, I learned some tricks that came handy as scale grew, especially once node and service counters start running in hundreds or thousands."><meta itemprop="datePublished" content="2018-10-23T20:35:00-05:00" />
 <meta itemprop="dateModified" content="2018-10-23T20:35:00-05:00" />
-<meta itemprop="wordCount" content="1502">
-
-
-
-<meta itemprop="keywords" content="tech," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="wordCount" content="1448">
+<meta itemprop="keywords" content="tech," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Using Consul at Some Scale"/>
 <meta name="twitter:description" content="Scale I&rsquo;ve been using Consul since one of the first releases back in 2014 and have set it up multiple times in various environments - from standalone nodes for convenience purposes to multi-datacenter federated clusters partitioned over WAN and LAN segments.
 Over time, dealing with larger and larger setups, I learned some tricks that came handy as scale grew, especially once node and service counters start running in hundreds or thousands."/>
@@ -113,7 +105,7 @@ post-template tag-hash-violet tag-hash-post-violet
                 <h1 class="white">Using Consul at Some Scale</h1>
                 <div class="item-meta white">
                     <time datetime='2018-10-23T20:35:00'>2018-10-23</time>
-                    <span class="reading-time"><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <path d="M10.1907692,24 C4.5625628,24 0,19.4374372 0,13.8092308 C0,8.18102433 4.5625628,3.61846154 10.1907692,3.61846154 C15.8189757,3.61846154 20.3815385,8.18102433 20.3815385,13.8092308 C20.3815385,19.4374372 15.8189757,24 10.1907692,24 Z M10.1907692,22 C14.7144062,22 18.3815385,18.3328677 18.3815385,13.8092308 C18.3815385,9.28559383 14.7144062,5.61846154 10.1907692,5.61846154 C5.6671323,5.61846154 2,9.28559383 2,13.8092308 C2,18.3328677 5.6671323,22 10.1907692,22 Z" id="Oval"></path><path d="M7.53230769,2.32923077 C6.98002294,2.32923077 6.53230769,1.88151552 6.53230769,1.32923077 C6.53230769,0.776946019 6.98002294,0.329230769 7.53230769,0.329230769 L12.9225711,0.329230769 C13.4748559,0.329230769 13.9225711,0.776946019 13.9225711,1.32923077 C13.9225711,1.88151552 13.4748559,2.32923077 12.9225711,2.32923077 L7.53230769,2.32923077 Z" id="Line-2"></path><path d="M13.2928932,9.29289322 C13.6834175,8.90236893 14.3165825,8.90236893 14.7071068,9.29289322 C15.0976311,9.68341751 15.0976311,10.3165825 14.7071068,10.7071068 L10.897876,14.5163376 C10.5073517,14.9068618 9.87418674,14.9068618 9.48366245,14.5163376 C9.09313816,14.1258133 9.09313816,13.4926483 9.48366245,13.102124 L13.2928932,9.29289322 Z" id="Line"></path></svg> 8 min read<span>
+                    <span class="reading-time"><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <path d="M10.1907692,24 C4.5625628,24 0,19.4374372 0,13.8092308 C0,8.18102433 4.5625628,3.61846154 10.1907692,3.61846154 C15.8189757,3.61846154 20.3815385,8.18102433 20.3815385,13.8092308 C20.3815385,19.4374372 15.8189757,24 10.1907692,24 Z M10.1907692,22 C14.7144062,22 18.3815385,18.3328677 18.3815385,13.8092308 C18.3815385,9.28559383 14.7144062,5.61846154 10.1907692,5.61846154 C5.6671323,5.61846154 2,9.28559383 2,13.8092308 C2,18.3328677 5.6671323,22 10.1907692,22 Z" id="Oval"></path><path d="M7.53230769,2.32923077 C6.98002294,2.32923077 6.53230769,1.88151552 6.53230769,1.32923077 C6.53230769,0.776946019 6.98002294,0.329230769 7.53230769,0.329230769 L12.9225711,0.329230769 C13.4748559,0.329230769 13.9225711,0.776946019 13.9225711,1.32923077 C13.9225711,1.88151552 13.4748559,2.32923077 12.9225711,2.32923077 L7.53230769,2.32923077 Z" id="Line-2"></path><path d="M13.2928932,9.29289322 C13.6834175,8.90236893 14.3165825,8.90236893 14.7071068,9.29289322 C15.0976311,9.68341751 15.0976311,10.3165825 14.7071068,10.7071068 L10.897876,14.5163376 C10.5073517,14.9068618 9.87418674,14.9068618 9.48366245,14.5163376 C9.09313816,14.1258133 9.09313816,13.4926483 9.48366245,13.102124 L13.2928932,9.29289322 Z" id="Line"></path></svg> 7 min read<span>
                 </div>
             </div>
         </div>
@@ -122,129 +114,67 @@ post-template tag-hash-violet tag-hash-post-violet
         <div class='post-wrap no-image'>
             
             
-            
-
-<h2 id="scale">Scale</h2>
-
+            <h2 id="scale">Scale</h2>
 <p>I&rsquo;ve been using <a href="https://www.consul.io/">Consul</a> since one of the first releases back in 2014 and have set it up multiple times in various environments - from standalone nodes for convenience purposes to multi-datacenter federated clusters partitioned over WAN and LAN segments.</p>
-
 <p>Over time, dealing with larger and larger setups, I learned some tricks that came handy as scale grew, especially once node and service counters start running in hundreds or thousands.</p>
-
 <p>I must note that I have not pushed Consul to its limits and my experience is not outstanding in any way as there seem to exist setups that are orders of magnitude larger than what I dealt with so far:</p>
-
-<p><blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Great milestone for the Consul team: hit highest known single-DC node count working with a user. 35,000 nodes in a <em>single</em> DC! (We have 10x larger <em>full</em> deployments but split across multiple DCs/segments, this is just one DC). This is an Alexa top 50 site, in production!</p>&mdash; Mitchell Hashimoto (@mitchellh) <a href="https://twitter.com/mitchellh/status/1032046587499827200?ref_src=twsrc%5Etfw">August 21, 2018</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></p>
-
+<!-- raw HTML omitted -->
 <p>On the other hand, I rarely see people talking about tweaks I&rsquo;ve been using, and I definitely would&rsquo;ve saved myself from many problems if I knew about them before I needed them.</p>
-
 <h2 id="scope">Scope</h2>
-
 <p>I only deal with Linux and assume there are no resource bottlenecks - as in, Consul is not starving on CPU/IO/RAM/etc.</p>
-
 <h2 id="stability">Stability</h2>
-
 <p>Few things make Consul servers way more stable and save time investigating sporadic API call failures. In other words, let&rsquo;s start by making sure that as few requests would fail as possible.</p>
-
 <h3 id="open-file-descriptors">Open File Descriptors</h3>
-
 <p>Opening a file takes a file descriptor. As well as opening a socket - and not only for listening for incoming connections but also for each connection that is kept open. It is especially crucial for Consul as it usually talks a lot via network - both to keep in touch with other nodes and to process API requests to update/retrieve service or KV records.</p>
-
 <p>Linux enforces limits on how many file descriptors given process can have. There is a system-wide limit that one can set via <code>sysctl</code> and there is a limit for any given process.</p>
-
 <p>The latter can be easily adjusted. In case of Systemd it would be just an entry under <code>Service</code> section:</p>
-
-<pre><code class="language-ini">[Service]
-LimitNOFILE=16384
-</code></pre>
-
-<p>and with Docker it&rsquo;s just an extra command line parameter:</p>
-
-<pre><code class="language-bash">$ docker run --ulimit nofile=16384 consul
-</code></pre>
-
-<p><br/></p>
-
-<h3 id="raft-multiplier">raft_multiplier</h3>
-
-<p>Of all items on the list, this one is closest to &ldquo;tweaking&rdquo; Consul itself. It&rsquo;s very well documented in <a href="https://www.consul.io/docs/guides/performance.html">Consul&rsquo;s performance guide</a>, but the bottom line is to put this into Consul Servers&rsquo; configuration:</p>
-
-<pre><code class="language-json">{
-  &quot;performance&quot;: {
-    &quot;raft_multiplier&quot;: 1
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#66d9ef">[Service]</span>
+<span style="color:#a6e22e">LimitNOFILE</span><span style="color:#f92672">=</span><span style="color:#e6db74">16384</span>
+</code></pre></div><p>and with Docker it&rsquo;s just an extra command line parameter:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker run --ulimit nofile<span style="color:#f92672">=</span><span style="color:#ae81ff">16384</span> consul
+</code></pre></div><!-- raw HTML omitted -->
+<h3 id="raft_multiplier">raft_multiplier</h3>
+<p>Of all items on the list, this one is closest to &ldquo;tweaking&rdquo; Consul itself. It&rsquo;s very well documented in <a href="https://www.consul.io/docs/guides/performance.html">Consul&rsquo;s performance guide</a>, but the bottom line is to put this into Consul Servers' configuration:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;performance&#34;</span>: {
+    <span style="color:#f92672">&#34;raft_multiplier&#34;</span>: <span style="color:#ae81ff">1</span>
   }
 }
-</code></pre>
-
-<p>This, essentially, speeds up leader failure detection and re-election and therefore minimizes the window when requests involving leader may fail.</p>
-
+</code></pre></div><p>This, essentially, speeds up leader failure detection and re-election and therefore minimizes the window when requests involving leader may fail.</p>
 <h3 id="stale-reads">Stale Reads</h3>
-
 <p>This topic is also briefly mentioned in <a href="https://www.consul.io/docs/guides/performance.html">Consul&rsquo;s performance guide</a>, but I think this is way under-appreciated optimization.</p>
-
 <p>In my experience, even in a federated setup with hundreds of nodes and services, may a KV entry or a service state change - this information would be propagated around very quickly. In a matter of 10th of milliseconds, when using <em>stale</em> reads. Such latencies are detectable only when one uses long-polling to listen for state changes. On top of that, I am not sure I ever saw health-checks being executed more often than once per second or few. It means that the propagation latency can be considered negligible.</p>
-
 <p>The <a href="https://www.consul.io/api/index.html#stale">official documentation</a> says (highlights are mine):</p>
-
-<pre><code class="language-markdown">This mode allows any server to service the read regardless of whether it is the leader. It means reads can be **arbitrarily** stale; however, results are generally consistent to within **50 milliseconds** of the leader. The trade-off is very fast and scalable reads with a higher likelihood of stale values. Since this mode **allows reads without a leader, a cluster that is unavailable would still be able to respond to queries**.
-</code></pre>
-
-<p>What does that mean? If we recall the CAP theorem - it means that we opt into AP, or in other words, being available in the face of a network partition. It might not be suitable for all cases, but in my experience, that&rsquo;s a safe assumption in 99% of them - to the degree that I <strong>always</strong> default to stale reads.</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown">This mode allows any server to service the read regardless of whether it is the leader. It means reads can be <span style="font-weight:bold">**arbitrarily**</span> stale; however, results are generally consistent to within <span style="font-weight:bold">**50 milliseconds**</span> of the leader. The trade-off is very fast and scalable reads with a higher likelihood of stale values. Since this mode <span style="font-weight:bold">**allows reads without a leader, a cluster that is unavailable would still be able to respond to queries**</span>.
+</code></pre></div><p>What does that mean? If we recall the CAP theorem - it means that we opt into AP, or in other words, being available in the face of a network partition. It might not be suitable for all cases, but in my experience, that&rsquo;s a safe assumption in 99% of them - to the degree that I <strong>always</strong> default to stale reads.</p>
 <p>Also, since reads are &ldquo;AP&rdquo; now - even leader failure would not impact data retrieval.</p>
-
 <h3 id="intervals">Intervals</h3>
-
 <p>When dealing with large distributed systems relying on time too much is not the best idea as high precision clocks are hard, they would drift away or won&rsquo;t be appropriately synchronized at all.</p>
-
 <p>Even though Consul&rsquo;s performance is such that durations are usually measured in milliseconds, that&rsquo;s not a sane precision in general purpose distributed system built on commodity hardware.</p>
-
 <p>Going an order of magnitude slower or two - at a per second precision - would simplify many things and would generally eliminate the need to worry about stale data, rate limits, abusive API clients and so on. Even though one can use long-polling to retrieve updates from Consul immediately, adding a second-scale interval before re-starting a watch would significantly reduce the load on both on Consul and on the software that processes updates. Going in batches is always more efficient and even may eliminate the need for processing updates if some of the services are flapping within the interval period (unless that&rsquo;s the goal).</p>
-
 <h2 id="reliability">Reliability</h2>
-
 <p>Approaching Consul from user&rsquo;s perspective &ldquo;reliability&rdquo; means not Consul&rsquo;s reliability but rather making sure that operations are executed are performed they way one expects, and there are as few unpredicted edge cases as possible.</p>
-
 <h3 id="durable-writes">Durable Writes</h3>
-
 <p>Speaking about <em>stale</em> consistency mode above, I only mentioned <em>reads</em> and not <em>writes</em>. To the best of my knowledge, <em>writes</em> are not subject to consistency modes, and this is also briefly mentioned in Consul&rsquo;s documentation:</p>
-
-<pre><code class="language-markdown">consistency query parameters will be ignored, since writes are always managed by the leader via the Raft consensus protocol
-</code></pre>
-
-<p>In other words, writes are durable by default, and one does not have to worry about consistency modes when modifying data.</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown">consistency query parameters will be ignored, since writes are always managed by the leader via the Raft consensus protocol
+</code></pre></div><p>In other words, writes are durable by default, and one does not have to worry about consistency modes when modifying data.</p>
 <h3 id="federated-atomic-reads">Federated Atomic Reads</h3>
-
 <p>For a pretty long time by now, Consul has <a href="https://www.consul.io/api/txn.html">Transactions API</a> that can be used to perform atomic sets of operations. Unfortunately, I did not have a chance to measure its overhead yet, but it&rsquo;s a way to go if one needs to combine several operations of different types (read a key, modify another one or maybe delete it).</p>
-
 <p>Sometimes though one needs to fetch data from another data center in an &ldquo;atomic way&rdquo; - as in, imagine watching few KV sub-trees in a federated cluster. It may lead to unexpected results in the face of network issues, especially when they are intermittent - some of the watches can succeed while others may fail and fall into a retry loop.</p>
-
 <p>A &ldquo;trick&rdquo; around such a problem is to avoid watching several KV subtrees in a single context when talking to a federated cluster. Instead, one can watch a superset of all trees that should be monitored. While potentially resulting in more data transfer, this would make the whole process smoother as it&rsquo;s always would be easy to reason about the state of such a KV observation.</p>
-
 <h2 id="performance">Performance</h2>
-
 <p>When talking to Consul&rsquo;s APIs, one usually takes its performance for granted, but how exactly one talks to APIs can make a huge difference.</p>
-
 <h3 id="acls-for-performance">ACLs for performance</h3>
-
 <p>Consul&rsquo;s KV operations can be performed either on individual entries or entire sub-trees. Catalog operations are usually performed on particular service or node entries. Nevertheless, when dealing with large clusters, one may face situations when it&rsquo;s impossible to filter out unnecessary data.</p>
-
 <p>Watching a service state on a few particular nodes would result in either several watches with complicated synchronization or watching service state across the whole cluster and then extracting a tiny piece of the retrieved data.</p>
-
 <p>Same goes for KV - as in the example with federated atomic reads, one may need to watch the entire KV tree to be able to detect changes in a few key entries under different paths.</p>
-
 <p>It might be an un-obvious solution, but ACLs can be a great help with that. In most cases, it&rsquo;s pretty easy to create a Consul access token with ACL rules that would restrict available data to only those that are needed. It may not only tremendously reduce data transfer but also reduce the load by skipping updates to irrelevant data and even simplify the data filtering on its own, given that the ACL rules engine is domain specific.</p>
-
-<h3 id="http-2">HTTP/2</h3>
-
+<h3 id="http2">HTTP/2</h3>
 <p>Since version <code>1.0.1</code> Consul API supports HTTP/2 when TLS is enabled, which means that one can utilize persistent connections and multiplex many API calls over a single TCP connection. It reduces overhead on establishing new connections and also reduces the need for file descriptors on Consul agents that serve many API calls.</p>
-
 <h2 id="conclusion">Conclusion</h2>
-
 <p>While Consul&rsquo;s documentation has many excellent guides on optimizing Consul&rsquo;s performance, stability and reliability, there is a lot that can be done from a user&rsquo;s perspective. Not only such &ldquo;tricks&rdquo; can make Consul&rsquo;s life easier but also can simplify applications that are talking to Consul APIs.</p>
 
         </div>
-        
     </div>
 </article>
 
@@ -253,6 +183,8 @@ LimitNOFILE=16384
         
         <a href="https://ashald.net/posts/2018/10/24/consul-acls-nginx/"
             class="prev-post  tag-hash-violet  tag-hash-post-violet  tag-hash-large  ">
+            
+            <div class="prev-next-image" style="background-image: url()"></div>
             
             <section class="prev-next-title">
                 <h5>Newer Post</h5>
@@ -263,6 +195,8 @@ LimitNOFILE=16384
         
         <a href="https://ashald.net/posts/2018/08/14/bash-templating/"
             class="next-post  tag-hash-orange  tag-hash-post-orange  ">
+            
+            <div class="prev-next-image" style="background-image: url()"></div>
             
             <section class="prev-next-title">
                 <h5>Older Post</h5>

@@ -1,20 +1,115 @@
-// Creates Captions from Alt tags
-document.querySelectorAll(".post-wrap p > img").forEach(function(img) {
+window.addEventListener("load", function (event) {
+    Array.from(document.querySelector("article .post-wrap").children).forEach(makeGalleries);
+});
+
+function makeGalleries(block) {
+    if (isVideo(block)) {
+        resizeVideo(block);
+    } else if (allChildrenSingleType(block, "IMG")) {
+        if (block.children.length > 1) {
+            createOneRowGallery(block);
+        } else {
+            singleImage(block);
+        }
+    }
+}
+
+function createOneRowGallery(block) {
+    let rows = splitImagesIntoRows(block.children);
     let figure = document.createElement("figure");
-    img.parentElement.insertBefore(figure, img);
+    figure.classList.add("kg-card", "kg-gallery-card", "kg-width-wide");
+    block.parentNode.insertBefore(figure, block);
+
+    let galleryContainer = document.createElement("div");
+    galleryContainer.classList.add("kg-gallery-container");
+    figure.appendChild(galleryContainer);
+
+
+    rows.forEach(rowImages => {
+        let rowContainer = document.createElement("div");
+        rowContainer.classList.add("kg-gallery-row");
+        galleryContainer.appendChild(rowContainer);
+
+        rowImages.forEach(img => {
+            let imgContainer = document.createElement("div");
+            imgContainer.classList.add("kg-gallery-image");
+            imgContainer.style.flex = img.width / img.height + " 1 0%";
+            rowContainer.appendChild(imgContainer);
+
+            imgContainer.appendChild(img);
+        });
+    });
+
+    block.parentNode.removeChild(block);
+}
+
+function splitImagesIntoRows(images) {
+    let result = [[]];
+
+    for (let img of images) {
+        result[result.length-1].push(img);
+        if (img.src.split("#")[1] === "wrap") {
+            result.push([]);
+        }
+    }
+
+    if (result[result.length-1].length === 0) {
+        result.pop()
+    }
+
+    return result;
+}
+
+function singleImage(block) {
+    let img = block.firstChild;
+
+    let figure = document.createElement("figure");
     figure.appendChild(img);
 
-    let side = img.getAttribute("src").split("#")[1];
-    if (side) {
-        figure.classList.add(side);
+    figure.classList.add("kg-card", "kg-image-card");
+    block.parentNode.insertBefore(figure, block);
+    block.parentNode.removeChild(block);
+
+    let modifier = img.src.split("#")[1] || "wide";
+    switch (modifier) {
+        case "left":
+        case "right":
+            figure.classList.add(modifier);
+            break;
+        case "full":
+        case "wide":
+            figure.classList.add("kg-width-" + modifier);
+            break;
     }
 
-    let alt = img.getAttribute("alt");
-    if (alt) {
+    if (img.alt) {
         let caption = document.createElement("figcaption");
-        caption.textContent = alt;
+        caption.textContent = img.alt;
         figure.appendChild(caption);
+        figure.classList.add("kg-card-hascaption");
     }
+}
+
+function resizeVideo(block) {
+    block.classList.add("kg-gallery-container");
+
+    let container = document.createElement("div");
+    container.classList.add("kg-card", "kg-gallery-card", "kg-width-wide");
+    block.parentNode.insertBefore(container, block);
+    container.appendChild(block);
+}
+
+function allChildrenSingleType(element, type) {
+    return Array.from(element.childNodes).every(node => node.tagName === type || node.data && node.data.trim().length === 0);
+}
+
+function isVideo(element) {
+    return element.tagName === "FIGURE" && element.querySelector("iframe") !== undefined;
+}
+
+// Fix Bash prompts
+window.addEventListener("load", function (event) {
+    document.querySelectorAll("pre code.language-bash").forEach(fixPrompts);
 });
 
 function fixPrompts(code) {
@@ -22,7 +117,7 @@ function fixPrompts(code) {
     function wrapChildTextNodes(node) {
         if (node.data) { // it's a text node
             let lines = node.data.match(/.+\n?|\n/g);
-            lines.forEach(function(line) {
+            lines.forEach(function (line) {
                 let newSpan = document.createElement('span');
                 newSpan.appendChild(document.createTextNode(line));
                 node.parentNode.insertBefore(newSpan, node);
@@ -37,6 +132,7 @@ function fixPrompts(code) {
 
     // Make prompt spans unselectable
     var newLine = true;
+
     function excludePrompts(node) {
         var nodeText = node.innerText ? node.innerText : "";
         if (node.innerText && node.innerText.includes('\n')) {
@@ -72,43 +168,6 @@ function fixPrompts(code) {
             newLine = true;
         }
     }
+
     Array.from(code.childNodes).forEach(excludePrompts);
 }
-
-window.addEventListener("load", function(event) {
-    document.querySelectorAll("pre code.language-bash").forEach(fixPrompts);
-});
-
-// document.querySelectorAll(".post-wrap h1, .post-wrap h2, .post-wrap h3, .post-wrap h4, .post-wrap h5, .post-wrap h6")
-//    wrap into links
-
-document.addEventListener("keydown", function(event) {
-    var diff = 0;
-    if (event.keyCode == 37) {
-        diff = -1
-    } else if (event.keyCode == 39) {
-        diff = 1
-    }
-    if (diff === 0) {
-        return
-    }
-
-    let current = zoom.getZoomedImage();
-    if (current == null) {
-        return
-    }
-    let allImages = zoom.getImages();
-    let currentIdnex = allImages.indexOf(current);
-    let nextIndex = currentIdnex + diff;
-    if (nextIndex < 0 || nextIndex > allImages.length - 1) {
-        return
-    }
-    let next = allImages[nextIndex];
-
-    // zoom.close();
-    zoom.close().then(function(value) {
-        next.scrollIntoView();
-        zoom.open({"target": next});
-      });
-    
-})
