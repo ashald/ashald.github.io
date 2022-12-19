@@ -24,7 +24,7 @@
 
   <meta property="og:title" content="Templating with Bash" />
 <meta property="og:description" content="While scripting in Bash, pretty often there is a need to generate a file or few. Some of the configuration options might not be known until the just-before application start or might need to be derived from the environment or context.
-Environment Variable Substitution One off One of the most common ways to generate a configuration file is by using heredoc literal:
+Environment Variable SubstitutionOne offOne of the most common ways to generate a configuration file is by using heredoc literal:
 $ SERVER_IP=0.0.0.0 SERVER_PORT=12345 cat &gt; config.json &lt;&lt; EOF &gt; { &gt; &#34;ip&#34;: &#34;${SERVER_IP}&#34;, &gt; &#34;port&#34;: ${SERVER_PORT} &gt; } &gt; EOF as simple as that, it&rsquo;s hard to beat it in terms of convenience as you don&rsquo;t need to worry about many things such as escaping quotes, worry about newlines and so on." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ashald.net/posts/2018/08/14/bash-templating/" /><meta property="article:section" content="posts" />
@@ -33,14 +33,14 @@ $ SERVER_IP=0.0.0.0 SERVER_PORT=12345 cat &gt; config.json &lt;&lt; EOF &gt; { &
 
 <meta itemprop="name" content="Templating with Bash">
 <meta itemprop="description" content="While scripting in Bash, pretty often there is a need to generate a file or few. Some of the configuration options might not be known until the just-before application start or might need to be derived from the environment or context.
-Environment Variable Substitution One off One of the most common ways to generate a configuration file is by using heredoc literal:
+Environment Variable SubstitutionOne offOne of the most common ways to generate a configuration file is by using heredoc literal:
 $ SERVER_IP=0.0.0.0 SERVER_PORT=12345 cat &gt; config.json &lt;&lt; EOF &gt; { &gt; &#34;ip&#34;: &#34;${SERVER_IP}&#34;, &gt; &#34;port&#34;: ${SERVER_PORT} &gt; } &gt; EOF as simple as that, it&rsquo;s hard to beat it in terms of convenience as you don&rsquo;t need to worry about many things such as escaping quotes, worry about newlines and so on."><meta itemprop="datePublished" content="2018-08-14T13:07:00-04:00" />
 <meta itemprop="dateModified" content="2018-08-14T13:07:00-04:00" />
-<meta itemprop="wordCount" content="1078">
+<meta itemprop="wordCount" content="1072">
 <meta itemprop="keywords" content="tech," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Templating with Bash"/>
 <meta name="twitter:description" content="While scripting in Bash, pretty often there is a need to generate a file or few. Some of the configuration options might not be known until the just-before application start or might need to be derived from the environment or context.
-Environment Variable Substitution One off One of the most common ways to generate a configuration file is by using heredoc literal:
+Environment Variable SubstitutionOne offOne of the most common ways to generate a configuration file is by using heredoc literal:
 $ SERVER_IP=0.0.0.0 SERVER_PORT=12345 cat &gt; config.json &lt;&lt; EOF &gt; { &gt; &#34;ip&#34;: &#34;${SERVER_IP}&#34;, &gt; &#34;port&#34;: ${SERVER_PORT} &gt; } &gt; EOF as simple as that, it&rsquo;s hard to beat it in terms of convenience as you don&rsquo;t need to worry about many things such as escaping quotes, worry about newlines and so on."/>
 </head>
 <body class='global-hash-dark-version
@@ -118,9 +118,7 @@ post-template tag-hash-orange tag-hash-post-orange
             
             
             <p>While scripting in Bash, pretty often there is a need to generate a file or few. Some of the configuration options might not be known until the just-before application start or might need to be derived from the environment or context.</p>
-<h2 id="environment-variable-substitution">Environment Variable Substitution</h2>
-<h3 id="one-off">One off</h3>
-<p>One of the most common ways to generate a configuration file is by using <a href="https://en.wikipedia.org/wiki/Here_document">heredoc literal</a>:</p>
+<h2 id="environment-variable-substitution"><a href="#environment-variable-substitution">Environment Variable Substitution</a></h2><h3 id="one-off"><a href="#one-off">One off</a></h3><p>One of the most common ways to generate a configuration file is by using <a href="https://en.wikipedia.org/wiki/Here_document">heredoc literal</a>:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ SERVER_IP<span style="color:#f92672">=</span>0.0.0.0 SERVER_PORT<span style="color:#f92672">=</span><span style="color:#ae81ff">12345</span> cat &gt; config.json <span style="color:#e6db74">&lt;&lt; EOF
 </span><span style="color:#e6db74">&gt; {
 </span><span style="color:#e6db74">&gt;   &#34;ip&#34;: &#34;${SERVER_IP}&#34;,
@@ -136,8 +134,7 @@ config.json
   <span style="color:#e6db74">&#34;ip&#34;</span>: <span style="color:#e6db74">&#34;0.0.0.0&#34;</span>,
   <span style="color:#e6db74">&#34;port&#34;</span>: <span style="color:#ae81ff">12345</span>
 <span style="color:#f92672">}</span>
-</code></pre></div><h3 id="multiple-files">Multiple files</h3>
-<p>The <code>heredoc</code> literal works great until there is a need to deal with an arbitrary number of config files that have to be processed. When that happens, the one needs some script to render a bunch of files by substituting environment variables in them. Luckily, <code>envsubst</code> from <code>gettext</code> package is to the rescue.</p>
+</code></pre></div><h3 id="multiple-files"><a href="#multiple-files">Multiple files</a></h3><p>The <code>heredoc</code> literal works great until there is a need to deal with an arbitrary number of config files that have to be processed. When that happens, the one needs some script to render a bunch of files by substituting environment variables in them. Luckily, <code>envsubst</code> from <code>gettext</code> package is to the rescue.</p>
 <p>Let&rsquo;s say we want to create a script called <code>render.sh</code> that would take a path to a directory as an argument, find all files like <code>foo.in</code> inside and render them by substituting environment variables into <code>foo</code>.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat &gt; render.sh <span style="color:#e6db74">&lt;&lt; &#39;EOF&#39;
 </span><span style="color:#e6db74">&gt; #!/usr/bin/env bash
@@ -174,8 +171,7 @@ render.sh
   <span style="color:#e6db74">&#34;port&#34;</span>: <span style="color:#ae81ff">12345</span>
 <span style="color:#f92672">}</span>
 </code></pre></div><p>So far so good!</p>
-<h2 id="command-evaluation">Command Evaluation</h2>
-<p>Unfortunately, sometimes that&rsquo;s not enough.</p>
+<h2 id="command-evaluation"><a href="#command-evaluation">Command Evaluation</a></h2><p>Unfortunately, sometimes that&rsquo;s not enough.</p>
 <p>Occasionally the one needs to execute some commands to derive values from the runtime environment or to make a more sophisticated decision about the value that should be used.</p>
 <p>Let&rsquo;s say there is an environment variable <code>${MNEMONIC}</code> that we want to look at and depending on its value we want to adjust our <code>port</code> number to be <code>1000</code> in <code>dev</code>, <code>2000</code> in <code>prod</code> or equal to our user id otherwise. On top of that, we want <code>ip</code> to be the address assigned to the interface that is used to access the default gateway. Crazy, right? Let&rsquo;s add one more field and call it <code>proto</code> - it should default to <code>http</code> unless another value is provided via environment variable called <code>PROTOCOL</code>.</p>
 <p>Each of the above can be done with Bash quite easily.</p>
@@ -198,9 +194,8 @@ http
 
 $ PROTOCOL<span style="color:#f92672">=</span>https bash -c <span style="color:#e6db74">&#39;echo ${PROTOCOL:-http}&#39;</span>
 https
-</code></pre></div><!-- raw HTML omitted -->
-<h3 id="one-off-1">One-off</h3>
-<p>How would we fit the above commands into our template when dealing with a single file? We would use the same <code>heredoc</code> literal as before!</p>
+</code></pre></div><br/>
+<h3 id="one-off-1"><a href="#one-off-1">One-off</a></h3><p>How would we fit the above commands into our template when dealing with a single file? We would use the same <code>heredoc</code> literal as before!</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat &gt; config.json <span style="color:#e6db74">&lt;&lt; EOF
 </span><span style="color:#e6db74">&gt; {
 </span><span style="color:#e6db74">&gt;   &#34;ip&#34;: &#34;$(ip a show $(ip r | grep -oP &#39;default .* \K.+&#39;) | grep -oP &#39;inet \K[\d\.]+&#39;)&#34;,
@@ -217,9 +212,8 @@ config.json
   <span style="color:#e6db74">&#34;port&#34;</span>: 3501,
   <span style="color:#e6db74">&#34;proto&#34;</span>: <span style="color:#e6db74">&#34;http&#34;</span>
 <span style="color:#f92672">}</span>
-</code></pre></div><!-- raw HTML omitted -->
-<h3 id="multiple-files-1">Multiple files</h3>
-<p>As one would expect from its name, command evaluation is beyond <code>envsubst</code> capabilities. Not only that, even &ldquo;default value&rdquo; construct as in <code>bash</code> is not supported.</p>
+</code></pre></div><br/>
+<h3 id="multiple-files-1"><a href="#multiple-files-1">Multiple files</a></h3><p>As one would expect from its name, command evaluation is beyond <code>envsubst</code> capabilities. Not only that, even &ldquo;default value&rdquo; construct as in <code>bash</code> is not supported.</p>
 <p>Luckily, there is still a way around. We would use <code>eval</code> builtin function from <code>bash</code> and will feed it with <code>cat</code> and another <code>heredoc</code> literal. This is what it takes to process an arbitrary input while making sure that we will preserve all the quotes, whitespaces etc:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat &gt; render.sh <span style="color:#e6db74">&lt;&lt; &#39;EOF&#39;
 </span><span style="color:#e6db74">&gt; #!/usr/bin/env bash
@@ -339,7 +333,7 @@ render.sh
 			
 				
 					
-					<a href="https://twitter.com/ashald"><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"/></svg></a>
+					<a href="https://mastodon.social/@ashald"><svg class="global-svg" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.193 7.879c0-5.206-3.411-6.732-3.411-6.732C18.062.357 15.108.025 12.041 0h-.076c-3.068.025-6.02.357-7.74 1.147 0 0-3.411 1.526-3.411 6.732 0 1.192-.023 2.618.015 4.129.124 5.092.934 10.109 5.641 11.355 2.17.574 4.034.695 5.535.612 2.722-.15 4.25-.972 4.25-.972l-.09-1.975s-1.945.613-4.129.539c-2.165-.074-4.449-.233-4.799-2.891a5.499 5.499 0 0 1-.048-.745s2.125.52 4.817.643c1.646.075 3.19-.097 4.758-.283 3.007-.359 5.625-2.212 5.954-3.905.517-2.665.475-6.507.475-6.507zm-4.024 6.709h-2.497V8.469c0-1.29-.543-1.944-1.628-1.944-1.2 0-1.802.776-1.802 2.312v3.349h-2.483v-3.35c0-1.536-.602-2.312-1.802-2.312-1.085 0-1.628.655-1.628 1.944v6.119H4.832V8.284c0-1.289.328-2.313.987-3.07.68-.758 1.569-1.146 2.674-1.146 1.278 0 2.246.491 2.886 1.474L12 6.585l.622-1.043c.64-.983 1.608-1.474 2.886-1.474 1.104 0 1.994.388 2.674 1.146.658.757.986 1.781.986 3.07v6.304z"/></svg></a>
 				
 			
 				

@@ -13,7 +13,8 @@
       <pubDate>Sun, 06 Mar 2022 00:00:00 -0500</pubDate>
       
       <guid>https://ashald.net/posts/2022/03/06/home-automation-journey/</guid>
-      <description>Useless Idea Back in 2014, I moved from Ukraine to the US and made a few friends at my new job. I spent days on the campus of National Institutes of Health and lived nearby in the town of Bethesda - about 10 minutes walking distance from my cubicle. There were many people like myself, and we were pointing at our apartments from the office windows while chatting over coffee.</description>
+      <description>Useless IdeaBack in 2014, I moved from Ukraine to the US and made a few friends at my new job. I spent days on the campus of National Institutes of Health and lived nearby in the town of Bethesda - about 10 minutes walking distance from my cubicle. There were many people like myself, and we were pointing at our apartments from the office windows while chatting over coffee.
+One of my colleagues did exactly that and said &amp;ldquo;voilà&amp;rdquo; - the lights in his apartment window turned on.</description>
     </item>
     
     <item>
@@ -32,7 +33,7 @@ Regardless of the environment where Consul is run, it&amp;rsquo;s always a good 
       <pubDate>Tue, 23 Oct 2018 20:35:00 -0500</pubDate>
       
       <guid>https://ashald.net/posts/2018/10/23/scale-consul/</guid>
-      <description>Scale I&amp;rsquo;ve been using Consul since one of the first releases back in 2014 and have set it up multiple times in various environments - from standalone nodes for convenience purposes to multi-datacenter federated clusters partitioned over WAN and LAN segments.
+      <description>ScaleI&amp;rsquo;ve been using Consul since one of the first releases back in 2014 and have set it up multiple times in various environments - from standalone nodes for convenience purposes to multi-datacenter federated clusters partitioned over WAN and LAN segments.
 Over time, dealing with larger and larger setups, I learned some tricks that came handy as scale grew, especially once node and service counters start running in hundreds or thousands.</description>
     </item>
     
@@ -43,7 +44,7 @@ Over time, dealing with larger and larger setups, I learned some tricks that cam
       
       <guid>https://ashald.net/posts/2018/08/14/bash-templating/</guid>
       <description>While scripting in Bash, pretty often there is a need to generate a file or few. Some of the configuration options might not be known until the just-before application start or might need to be derived from the environment or context.
-Environment Variable Substitution One off One of the most common ways to generate a configuration file is by using heredoc literal:
+Environment Variable SubstitutionOne offOne of the most common ways to generate a configuration file is by using heredoc literal:
 $ SERVER_IP=0.0.0.0 SERVER_PORT=12345 cat &amp;gt; config.json &amp;lt;&amp;lt; EOF &amp;gt; { &amp;gt; &amp;#34;ip&amp;#34;: &amp;#34;${SERVER_IP}&amp;#34;, &amp;gt; &amp;#34;port&amp;#34;: ${SERVER_PORT} &amp;gt; } &amp;gt; EOF as simple as that, it&amp;rsquo;s hard to beat it in terms of convenience as you don&amp;rsquo;t need to worry about many things such as escaping quotes, worry about newlines and so on.</description>
     </item>
     
@@ -53,19 +54,9 @@ $ SERVER_IP=0.0.0.0 SERVER_PORT=12345 cat &amp;gt; config.json &amp;lt;&amp;lt; 
       <pubDate>Sun, 12 Aug 2018 16:42:00 -0400</pubDate>
       
       <guid>https://ashald.net/posts/2018/08/12/python-cli/</guid>
-      <description>Intro Python is becoming the world&amp;rsquo;s most popular coding language, and there are so many uses for it. One of the most popular ones, probably, would be scripting.
+      <description>IntroPython is becoming the world&amp;rsquo;s most popular coding language, and there are so many uses for it. One of the most popular ones, probably, would be scripting.
 When writing a command-line application in Python, parsing arguments passed to it is usually the problem #1.
 If you&amp;rsquo;re dealing with a program that has its own dependencies or there is an environment (hope it&amp;rsquo;s virtual rather than system-wide) you don&amp;rsquo;t mind installing few packages to - you probably should consider using excellent click library.</description>
-    </item>
-    
-    <item>
-      <title>Modeling Trees: Graphs vs SQL-based MPTT</title>
-      <link>https://ashald.net/posts/2018/08/10/graph-databases/</link>
-      <pubDate>Fri, 10 Aug 2018 23:33:00 -0400</pubDate>
-      
-      <guid>https://ashald.net/posts/2018/08/10/graph-databases/</guid>
-      <description>Back in 2014 I&amp;rsquo;ve been working for a startup then-called EnergyDeck on behalf of a web studio WebRiders. Even though I started working in tech since I graduated from high school and been working in the field for about 7 years by that time, mostly it was part time on rather smaller projects or internship after or instead of my college hours.
-So, here am I, just a year since I finished my master&amp;rsquo;s degree, working on my first [rather] big[ger] project and enjoying brave new world of real world data modeling problems.</description>
     </item>
     
     <item>
@@ -76,6 +67,16 @@ So, here am I, just a year since I finished my master&amp;rsquo;s degree, workin
       <guid>https://ashald.net/posts/2018/08/09/500-lines-or-less/</guid>
       <description>Being a huge fan of &amp;ldquo;The Architecture of Open Source Applications&amp;rdquo; series I was super excited when an announcement came in that call for reviewers was open for a new book called &amp;ldquo;500 Lines or Less&amp;rdquo;.
 The idea behind the book is that even though modern software became very complex and is based on sophisticated standards, some pretty complex systems can be implemented at least on the level of proof of concept in 500 lines of code or less.</description>
+    </item>
+    
+    <item>
+      <title>Modeling Trees: Graphs vs SQL-based MPTT</title>
+      <link>https://ashald.net/posts/2014/06/17/graph-databases/</link>
+      <pubDate>Tue, 17 Jun 2014 00:00:00 +0300</pubDate>
+      
+      <guid>https://ashald.net/posts/2014/06/17/graph-databases/</guid>
+      <description>Back in 2014 I&amp;rsquo;ve been working for a startup then-called EnergyDeck on behalf of a web studio WebRiders. Even though I started working in tech since I graduated from high school and been working in the field for about 7 years by that time, mostly it was part time on rather smaller projects or internship after or instead of my college hours.
+So, here am I, just a year since I finished my master&amp;rsquo;s degree, working on my first [rather] big[ger] project and enjoying brave new world of real world data modeling problems.</description>
     </item>
     
   </channel>

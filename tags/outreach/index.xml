@@ -6,17 +6,7 @@
     <description>Recent content on Ashald</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 10 Aug 2018 23:33:00 -0400</lastBuildDate><atom:link href="https://ashald.net/tags/outreach/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Modeling Trees: Graphs vs SQL-based MPTT</title>
-      <link>https://ashald.net/posts/2018/08/10/graph-databases/</link>
-      <pubDate>Fri, 10 Aug 2018 23:33:00 -0400</pubDate>
-      
-      <guid>https://ashald.net/posts/2018/08/10/graph-databases/</guid>
-      <description>Back in 2014 I&amp;rsquo;ve been working for a startup then-called EnergyDeck on behalf of a web studio WebRiders. Even though I started working in tech since I graduated from high school and been working in the field for about 7 years by that time, mostly it was part time on rather smaller projects or internship after or instead of my college hours.
-So, here am I, just a year since I finished my master&amp;rsquo;s degree, working on my first [rather] big[ger] project and enjoying brave new world of real world data modeling problems.</description>
-    </item>
-    
+    <lastBuildDate>Thu, 09 Aug 2018 23:12:00 -0400</lastBuildDate><atom:link href="https://ashald.net/tags/outreach/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>500 Lines or Less</title>
       <link>https://ashald.net/posts/2018/08/09/500-lines-or-less/</link>
@@ -25,6 +15,16 @@ So, here am I, just a year since I finished my master&amp;rsquo;s degree, workin
       <guid>https://ashald.net/posts/2018/08/09/500-lines-or-less/</guid>
       <description>Being a huge fan of &amp;ldquo;The Architecture of Open Source Applications&amp;rdquo; series I was super excited when an announcement came in that call for reviewers was open for a new book called &amp;ldquo;500 Lines or Less&amp;rdquo;.
 The idea behind the book is that even though modern software became very complex and is based on sophisticated standards, some pretty complex systems can be implemented at least on the level of proof of concept in 500 lines of code or less.</description>
+    </item>
+    
+    <item>
+      <title>Modeling Trees: Graphs vs SQL-based MPTT</title>
+      <link>https://ashald.net/posts/2014/06/17/graph-databases/</link>
+      <pubDate>Tue, 17 Jun 2014 00:00:00 +0300</pubDate>
+      
+      <guid>https://ashald.net/posts/2014/06/17/graph-databases/</guid>
+      <description>Back in 2014 I&amp;rsquo;ve been working for a startup then-called EnergyDeck on behalf of a web studio WebRiders. Even though I started working in tech since I graduated from high school and been working in the field for about 7 years by that time, mostly it was part time on rather smaller projects or internship after or instead of my college hours.
+So, here am I, just a year since I finished my master&amp;rsquo;s degree, working on my first [rather] big[ger] project and enjoying brave new world of real world data modeling problems.</description>
     </item>
     
   </channel>
